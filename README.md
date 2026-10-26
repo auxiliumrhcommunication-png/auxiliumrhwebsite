@@ -29,6 +29,13 @@ puis aller sur http://localhost:8000.
 - Envoi du formulaire : il ne fait pour l'instant que valider les champs. Pour recevoir les messages, le relier à un service comme Formspree ou Netlify Forms.
 - Logo définitif (remplacer le « A » provisoire).
 
-## Mise en ligne
+## Mise en ligne (Firebase Hosting)
 
-Le site peut être publié gratuitement avec GitHub Pages : Settings → Pages → branche `main`, dossier `/ (root)`.
+La configuration est dans `firebase.json` : le site est publié depuis la racine du dépôt (sauf `.claude/`, le README et les fichiers cachés), avec des en-têtes de sécurité (CSP, HSTS, etc.).
+
+1. Créer un projet sur https://console.firebase.google.com (offre gratuite « Spark »).
+2. Installer l'outil et se connecter : `npm install -g firebase-tools` puis `firebase login`.
+3. Lier le dépôt au projet : `firebase use --add` (crée le fichier `.firebaserc`).
+4. Publier : `firebase deploy --only hosting`.
+
+Le site est alors en ligne sur `https://<id-du-projet>.web.app`. Un nom de domaine personnalisé peut être ajouté dans la console Firebase (Hosting → Ajouter un domaine personnalisé).
