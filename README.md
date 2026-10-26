@@ -6,11 +6,17 @@ Ce dépôt distant servira à conserver les informations de la création du site
 Site vitrine statique (HTML / CSS / JavaScript), sans outil de compilation.
 
 ```
-index.html          Page principale (accueil, services, approche, à propos, contact)
+index.html          Accueil : présentation, domaines d'expertise, approche, atouts
+services.html       Détail des 6 domaines d'expertise
+secteurs.html       Publics accompagnés (TPE/PME, grandes entreprises, etc.)
+a-propos.html       Présentation du cabinet, vision et engagements
+contact.html        Coordonnées et formulaire de contact
 css/styles.css      Mise en forme (couleurs dans :root en haut du fichier)
-js/main.js          Menu mobile et validation du formulaire de contact
+js/main.js          Menu mobile et formulaire de contact
 assets/favicon.svg  Icône de l'onglet
 ```
+
+L'en-tête et le pied de page sont répétés dans chaque page : une modification (menu, coordonnées) doit être reportée dans les 5 fichiers.
 
 ## Voir le site en local
 
@@ -22,12 +28,15 @@ python3 -m http.server 8000
 
 puis aller sur http://localhost:8000.
 
+## Formulaire de contact
+
+Le site n'a pas de serveur : le formulaire vérifie les champs puis ouvre la messagerie du visiteur avec un e-mail pré-rempli adressé à info@auxiliumrh.ga (adresse définie par l'attribut `data-recipient` du formulaire dans `contact.html`). Pour recevoir les messages sans passer par la messagerie du visiteur, il faudra brancher un service (Formspree, Firebase…).
+
 ## À compléter
 
-- Coordonnées réelles (e-mail, téléphone, adresse) dans la section Contact de `index.html`.
-- Textes des services et de la présentation, à adapter à l'offre réelle.
-- Envoi du formulaire : il ne fait pour l'instant que valider les champs. Pour recevoir les messages, le relier à un service comme Formspree ou Netlify Forms.
+- Lien vers la page LinkedIn d'Auxilium RH.
 - Logo définitif (remplacer le « A » provisoire).
+- Page Actualités, quand du contenu sera disponible.
 
 ## Mise en ligne (Firebase Hosting)
 
