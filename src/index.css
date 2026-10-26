@@ -9,8 +9,16 @@
     scroll-padding-top: 88px;
   }
 
+  body {
+    @apply bg-white font-sans text-body text-ink antialiased;
+  }
+
+  /* Focus : bleu de marque 2 px décalé de 2 px, blanc sur les fonds bleus (.on-dark) */
   :focus-visible {
-    @apply outline outline-[3px] outline-offset-2 outline-accent-500;
+    @apply rounded-sm outline outline-2 outline-offset-2 outline-brand-600;
+  }
+  .on-dark :focus-visible {
+    @apply outline-white;
   }
 
   h1, h2, h3 {
@@ -19,49 +27,63 @@
 }
 
 @layer components {
-  /* Boutons */
-  .btn {
-    @apply inline-flex min-h-[48px] cursor-pointer whitespace-nowrap items-center justify-center gap-2 rounded-xl px-6 text-base font-bold
-      transition duration-200 ease-out;
-  }
-  .btn-primary {
-    @apply btn bg-accent-500 text-night-950 hover:-translate-y-0.5 hover:bg-accent-400 hover:shadow-lg;
-  }
-  .btn-outline {
-    @apply btn border-2 border-brand-600 text-brand-600 hover:bg-brand-600 hover:text-white;
-  }
-  .btn-outline-light {
-    @apply btn border-2 border-white/60 text-white hover:border-white hover:bg-white hover:text-night-950;
-  }
-
   .container-site {
     @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
   }
 
-  .eyebrow {
-    @apply mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-brand-600;
+  /* Boutons : hauteur 48 px, coins de 8 px */
+  .btn {
+    @apply inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg px-6
+      text-base font-semibold transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800;
+  }
+  .btn-secondary {
+    @apply btn border-[1.5px] border-brand-600 bg-white text-brand-600 hover:border-brand-700 hover:bg-brand-50 hover:text-brand-700;
+  }
+  /* Sur fond bleu : bouton blanc / contour blanc */
+  .btn-on-dark {
+    @apply btn bg-white text-brand-800 hover:bg-brand-50;
+  }
+  .btn-outline-on-dark {
+    @apply btn border-[1.5px] border-white text-white hover:bg-white hover:text-brand-800;
+  }
+  /* Lien tertiaire avec flèche */
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-brand-600 underline decoration-brand-200 decoration-2
+      underline-offset-4 transition-colors duration-200 hover:text-brand-700 hover:decoration-brand-600;
   }
 
-  .section-title {
-    @apply text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1];
+  .eyebrow {
+    @apply mb-4 block text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-brand-600;
   }
+  .title-xl { @apply font-display text-display-xl font-semibold text-ink; }
+  .title-lg { @apply font-display text-display-lg font-semibold text-ink; }
+  .title-md { @apply font-display text-display-md font-semibold text-ink; }
+  .title-sm { @apply font-display text-display-sm font-semibold text-ink; }
+
+  /* Champs de formulaire */
+  .field-label { @apply mb-1.5 block font-semibold text-ink; }
+  .field-input {
+    @apply min-h-[48px] w-full rounded border border-ink-500 bg-white px-4 py-3 text-base text-ink
+      transition-colors duration-200 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/25;
+  }
+  .field-input[aria-invalid='true'] { @apply border-danger focus:ring-danger/20; }
+
+  .section { @apply py-ds-2xl lg:py-ds-3xl; }
 }
 
-/* Fond du hero : ciel clair en haut qui plonge vers le bleu de marque,
-   avec des taches de lumière floues (inspiration fournie par Auxilium RH). */
-.hero-sky {
-  background:
-    radial-gradient(60% 40% at 50% 0%, rgba(255, 255, 255, 0.95), transparent 70%),
-    radial-gradient(32% 42% at 10% 88%, rgba(190, 214, 255, 0.85), transparent 70%),
-    radial-gradient(38% 38% at 88% 42%, rgba(37, 110, 240, 0.6), transparent 70%),
-    radial-gradient(30% 30% at 62% 70%, rgba(92, 154, 245, 0.55), transparent 70%),
-    linear-gradient(180deg, #F4F7FC 0%, #E8F0FD 14%, #B5D0FA 34%, #6CA2F5 56%, #2E6FE8 78%, #0B44D6 100%);
+/* Entrée de page : un fondu court (réglage --motion). Contenu visible sans JavaScript. */
+.page-enter {
+  --motion-duration: var(--ds-motion-duration, 300ms);
+  --motion-y: var(--ds-motion-y, 8px);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
+    animation: none !important;
     transition-duration: 0.01ms !important;
   }
 }

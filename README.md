@@ -3,52 +3,65 @@ Ce dépôt distant servira à conserver les informations de la création du site
 
 ## Technologies
 
-React 18 + TypeScript, compilé avec Vite, mis en forme avec Tailwind CSS. Animations GSAP (ScrollTrigger). Icônes Lucide. Hébergement Firebase Hosting.
+React 18 + TypeScript, compilé avec Vite, mis en forme avec Tailwind CSS. Icônes Lucide. Hébergement Firebase Hosting (hébergement seul : pas de base de données ni d'authentification).
 
 ## Arborescence
 
 ```
-index.html                  Point d'entrée Vite (titre, polices, favicon)
-tailwind.config.js          Palette Auxilium RH (brand #0333B3, night, accent orange)
-public/                     Logo, favicon et illustrations (public/illustrations/), copiés tels quels
+index.html                  Point d'entrée Vite (titre, polices, données structurées)
+tailwind.config.js          Jetons de la charte (bleu #0C37C7, encre, gris, sémantiques)
+public/                     Logo, favicon et illustrations (public/illustrations/)
 photos/                     Vos photos originales (voir « Images »)
 scripts/design.mjs          npm run design : réglages du skill ui-ux-pro-max
 scripts/images.mjs          npm run images : optimisation des photos
+scripts/sitemap.mjs         Génère dist/sitemap.xml et dist/robots.txt (lancé par npm run build)
 src/
-  main.tsx                  Démarrage de l'application et du routeur
-  App.tsx                   Routes, lien « Aller au contenu », gestion du défilement
-  index.css                 Tailwind, boutons, animation d'apparition
-  design/                   tokens.json (généré par npm run design) et sa traduction en mise en page/animations
+  main.tsx, App.tsx         Démarrage, routes, lien « Aller au contenu », défilement
+  index.css                 Boutons, champs, titres, fondu d'entrée de page
+  design/                   tokens.json (généré par npm run design) et sa traduction
+  hooks/useSeo.ts           Titre, description, adresse canonique, balises de partage par page
   data/                     TOUS LES TEXTES du site
-    site.ts                 Coordonnées, LinkedIn, menu
-    services.ts             Les 6 domaines d'expertise
+    site.ts                 Coordonnées, WhatsApp, LinkedIn, menu, appels à l'action, mentions légales
+    services.ts             Les 6 services (adresses /services/…) et les portes d'entrée « par besoin »
     company.ts              Secteurs, méthode, atouts, engagements
-    proof.ts                Chiffres clés et témoignages (réels uniquement)
+    blog.ts                 Articles et catégories
+    proof.ts                Chiffres d'impact et témoignages (réels uniquement)
   components/
-    Navbar.tsx              Barre de navigation fixe + menu mobile
-    Hero.tsx                Ouverture de l'accueil
-    HeroDashboard.tsx       Aperçu interactif d'un diagnostic RH (exemple)
-    ServicesGrid.tsx        Grille des expertises
-    StatsSection.tsx        Chiffres clés (compteurs animés)
-    FeatureRows.tsx         Trois expertises illustrées, en rangées alternées
-    SlotImage.tsx           Photo si disponible, sinon illustration
-    ApproachSection.tsx     Méthode en 4 étapes
-    WhyUsSection.tsx        Pourquoi Auxilium RH
-    Testimonials.tsx        Témoignages (masqué tant qu'il n'y en a pas)
-    CTASection.tsx          Bandeau d'appel à l'action
-    Footer.tsx              Pied de page
-    PageHeader.tsx          En-tête des pages intérieures
-    Logo.tsx, Reveal.tsx    Logo, apparition au défilement
-  pages/                    Accueil, Services, Secteurs, À propos, Blog (+ article), Contact, 404
+    Navbar.tsx              Barre fixe, sous-menu Services, menu mobile
+    Hero.tsx, BrandPanel.tsx Ouverture de l'accueil et visuel de marque
+    NeedsBar.tsx            Portes d'entrée « Vous souhaitez… »
+    ServicesIndex.tsx       Index numéroté des 6 services
+    DiagnosticSteps.tsx     Les 4 étapes de l'accompagnement
+    ReasonsSection.tsx      Pourquoi Auxilium RH
+    LatestPosts.tsx, PostCard.tsx  Articles (masqués tant qu'il n'y en a pas)
+    Testimonials.tsx        Témoignages (masqués tant qu'il n'y en a pas)
+    ContactActions.tsx      Paire d'appels à l'action « Demander un diagnostic RH » / « Parler à un expert RH »
+    CTASection.tsx, Footer.tsx, PageHeader.tsx, Logo.tsx, SlotImage.tsx
+  pages/                    Accueil, Services, Service (×6), Secteurs, À propos, Blog, Article,
+                            Contact, Mentions légales, Confidentialité, 404
 design-system/              Charte graphique (non publiée)
 ```
 
+## Adresses du site
+
+`/`, `/services`, `/services/recrutement`, `/services/audit-conformite`, `/services/paie-administration`,
+`/services/strategie-rh`, `/services/droit-du-travail`, `/services/externalisation`, `/secteurs`, `/a-propos`,
+`/blog`, `/blog/<article>`, `/contact`, `/mentions-legales`, `/confidentialite`.
+Les anciennes ancres (`/services#paie`…) redirigent vers la page du service. `/contact?motif=Recrutement` pré-remplit le motif.
+
+## À compléter avant la mise en production
+
+Dans `src/data/site.ts` :
+- **Mentions légales** (`legal`) : forme juridique, RCCM, NIF, adresse du siège, directeur de la publication. Tant qu'une valeur est entre crochets, les pages légales sont exclues de Google et du plan du site.
+- **WhatsApp** (`whatsapp`) : numéro au format international sans « + » (ex. `24162805051`). Vide = liens WhatsApp masqués, le bouton « Parler à un expert RH » appelle le téléphone.
+- **LinkedIn** (`linkedin`).
+
+Dans `src/pages/Legal.tsx` : durée de conservation des messages et cadre légal gabonais applicable (à valider par un juriste).
+
 ## Modifier le contenu
 
-Les textes sont dans `src/data/`. Exemples :
-- **Lien LinkedIn** : renseigner `linkedin` dans `src/data/site.ts`. Le lien apparaît alors dans le pied de page.
-- **Chiffres d'impact** (talents placés, entreprises accompagnées…) : remplir `impactStats` dans `src/data/proof.ts`.
-- **Témoignages** : remplir `testimonials` dans `src/data/proof.ts`, uniquement avec l'accord des personnes citées.
+- **Chiffres d'impact et témoignages** : `src/data/proof.ts`, uniquement des données réelles (témoignages avec accord écrit).
+- **Articles** : ajouter un objet à `posts` dans `src/data/blog.ts` (exemple commenté dans le fichier). Catégories disponibles : Recrutement, Conformité, Paie, Stratégie RH, Droit du travail, Guides, Actualités.
 
 ## Travailler en local
 
@@ -57,56 +70,52 @@ Il faut Node.js 18 ou plus récent.
 ```
 npm install        # une seule fois (et après chaque changement de dépendances)
 npm run dev        # site de développement sur http://localhost:5173
-npm run build      # compile le site dans dist/
+npm run build      # vérifie, compile dans dist/ et génère sitemap.xml + robots.txt
 npm run preview    # affiche la version compilée
 ```
 
 ## Réglages de design (skill ui-ux-pro-max)
 
-Trois réglages de 1 à 10 pilotent le site. Ils passent par le skill `.claude/skills/ui-ux-pro-max/` (Python 3 requis) :
-
 ```
-npm run design -- --variance 7 --motion 7 --density 3
+npm run design -- --variance 5 --motion 3 --density 3
 npm run build
 ```
 
-| Réglage | 1-3 | 4-7 | 8-10 |
-|---|---|---|---|
-| `--variance` (créativité) | Hero centré, grille régulière | Hero en deux colonnes, carte mise en avant | Hero asymétrique, grille « bento » |
-| `--motion` (animations) | Fondus discrets | Apparition en cascade, compteurs, parallaxe (≥ 6) | Mouvements plus amples, parallaxe renforcée |
-| `--density` (espacement) | Aéré (sections 96 px) | Standard (64 px) | Dense (32 px) |
+La direction « Clarté institutionnelle » limite volontairement leur effet :
+- `--density` : espacement (3 = sections de 96 px) ;
+- `--variance` : hero centré (1 à 3) ou en deux colonnes (4 et plus) ;
+- `--motion` : durée et amplitude du fondu d'entrée de page (plafonnées à 450 ms / 16 px).
 
-Un réglage omis garde sa valeur actuelle. Le résultat est écrit dans `src/design/tokens.json`. Valeurs actuelles : variance 7, motion 7, density 3.
-À partir de `--variance 8`, le skill propose le style « Brutalism » : le site n'en reprend que la mise en page et garde sa palette.
-Les animations sont toujours désactivées si le visiteur a demandé à réduire les animations.
+Python 3 est requis. Les animations sont toujours désactivées si le visiteur a demandé à réduire les animations.
 
 ## Images
 
-- **Illustrations** : `public/illustrations/`, vectorielles, aux couleurs du logo.
-- **Photos** : déposer `equipe.jpg`, `recrutement.jpg`, `conformite.jpg` ou `paie.jpg` dans `photos/`, puis lancer `npm run images` et `npm run build`. Chaque photo est recadrée, convertie en AVIF et WebP, et remplace l'illustration du même nom. Pour revenir à l'illustration, supprimer la photo et relancer `npm run images`.
-
-## Blog
-
-La rubrique Blog (`/blog`) lit les articles dans `src/data/blog.ts`. Pour publier un article, ajouter un objet à la liste `posts`, en haut de la liste pour le plus récent. Un exemple commenté est dans le fichier. Il faut renseigner l'adresse (`slug`), le titre, le résumé, la date, la catégorie et le contenu (paragraphes, intertitres, listes). Puis `npm run build` et `firebase deploy --only hosting`.
-Tant qu'il n'y a aucun article, la page affiche « Nos premiers articles arrivent bientôt ».
+- **Illustrations** : `public/illustrations/`, vectorielles, dans la palette bleue.
+- **Photos** : déposer `equipe.jpg`, `recrutement.jpg`, `conformite.jpg` ou `paie.jpg` dans `photos/`, puis `npm run images` et `npm run build`. La photo `equipe` remplace aussi le visuel de marque de l'accueil.
 
 ## Formulaire de contact
 
-Le site n'a pas de serveur : le formulaire vérifie les champs, puis ouvre la messagerie du visiteur avec un e-mail pré-rempli adressé à l'adresse de `src/data/site.ts`. Pour recevoir les messages directement, il faudra brancher un service (Formspree, Firebase…).
+Le site n'a pas de serveur : le formulaire vérifie les champs, puis ouvre la messagerie du visiteur avec un e-mail pré-rempli (motif, nom, e-mail, téléphone, organisation, besoin). Recevoir les messages sans passer par la messagerie du visiteur nécessitera un service (Formspree, Firebase…) : à décider.
 
 ## Mise en ligne (Firebase Hosting)
 
-`firebase.json` publie le dossier `dist/` et redirige toutes les adresses (/services, /contact…) vers l'application. Il ajoute aussi les en-têtes de sécurité (CSP, HSTS, etc.).
+`firebase.json` publie `dist/`, redirige toutes les adresses vers l'application et ajoute les en-têtes de sécurité (CSP, HSTS, etc.).
+
+Vérifier d'abord sur une adresse de prévisualisation (n'affecte pas le site en ligne) :
 
 ```
 git pull
 npm install
 npm run build
+firebase hosting:channel:deploy apercu
+```
+
+Puis, une fois validé, en production :
+
+```
 firebase deploy --only hosting      # doit indiquer « found … files in dist »
 ```
 
-Le site est en ligne sur https://auxilium-rh-database.web.app.
-
 ## Charte graphique
 
-Voir `design-system/auxilium-rh/MASTER.md` : couleurs du logo, police Plus Jakarta Sans et règles d'accessibilité.
+Voir `design-system/auxilium-rh/MASTER.md`.

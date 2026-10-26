@@ -5,6 +5,9 @@ export type ImageSlot = 'equipe' | 'recrutement' | 'conformite' | 'paie';
 type Photo = { avif: string; webp: string; fallback: string; width: number; height: number };
 const manifest = photos as Partial<Record<ImageSlot, Photo>>;
 
+/** Vrai si une photo réelle a été fournie pour cet emplacement (npm run images). */
+export const hasPhoto = (slot: ImageSlot) => Boolean(manifest[slot]);
+
 type SlotImageProps = {
   slot: ImageSlot;
   alt: string;

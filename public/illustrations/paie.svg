@@ -4,13 +4,13 @@
     <filter id="s" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#071233" flood-opacity="0.14"/></filter>
   </defs>
   <rect x="40" y="40" width="520" height="400" rx="200" fill="#EEF3FF"/>
-  <circle cx="520" cy="380" r="16" fill="#FFE5D3"/>
+  <circle cx="520" cy="380" r="16" fill="#DCE4FB"/>
   <!-- bulletin -->
   <g transform="translate(80 90)" filter="url(#s)">
     <rect width="250" height="310" rx="22" fill="#fff"/>
-    <path d="M0 22a22 22 0 0 1 22-22h206a22 22 0 0 1 22 22v40H0z" fill="#0333B3"/>
+    <path d="M0 22a22 22 0 0 1 22-22h206a22 22 0 0 1 22 22v40H0z" fill="#0C37C7"/>
     <rect x="24" y="24" width="100" height="12" rx="6" fill="#fff"/>
-    <circle cx="214" cy="31" r="12" fill="#FF6B2C"/>
+    <circle cx="214" cy="31" r="12" fill="#0A2DA3"/>
     <g transform="translate(24 92)" fill="#E2E8F0">
       <rect width="110" height="9" rx="4.5"/><rect x="150" width="52" height="9" rx="4.5" fill="#CBD5E1"/>
       <rect y="30" width="90" height="9" rx="4.5"/><rect x="160" y="30" width="42" height="9" rx="4.5" fill="#CBD5E1"/>
@@ -19,7 +19,7 @@
       <rect y="120" width="100" height="9" rx="4.5"/><rect x="154" y="120" width="48" height="9" rx="4.5" fill="#CBD5E1"/>
     </g>
     <rect x="24" y="250" width="202" height="38" rx="12" fill="#EEF3FF"/>
-    <rect x="40" y="264" width="60" height="10" rx="5" fill="#0333B3"/>
+    <rect x="40" y="264" width="60" height="10" rx="5" fill="#0C37C7"/>
     <rect x="150" y="262" width="62" height="14" rx="7" fill="#071233"/>
   </g>
   <!-- graphique -->
@@ -31,8 +31,8 @@
       <rect x="34" y="-58" width="22" height="58" rx="6" fill="#DCE6FF"/>
       <rect x="68" y="-50" width="22" height="50" rx="6" fill="#86A6FF"/>
       <rect x="102" y="-74" width="22" height="74" rx="6" fill="#4F78F5"/>
-      <rect x="136" y="-88" width="22" height="88" rx="6" fill="#0333B3"/>
-      <rect x="170" y="-100" width="22" height="100" rx="6" fill="#FF6B2C"/>
+      <rect x="136" y="-88" width="22" height="88" rx="6" fill="#0C37C7"/>
+      <rect x="170" y="-100" width="22" height="100" rx="6" fill="#0A2DA3"/>
     </g>
   </g>
   <!-- calendrier -->
@@ -42,7 +42,7 @@
     <rect x="46" y="-10" width="8" height="22" rx="4" fill="#94A3B8"/><rect x="126" y="-10" width="8" height="22" rx="4" fill="#94A3B8"/>
     <g transform="translate(22 56)" fill="#E2E8F0">
       <rect width="22" height="18" rx="5"/><rect x="34" width="22" height="18" rx="5"/><rect x="68" width="22" height="18" rx="5"/><rect x="102" width="22" height="18" rx="5"/>
-      <rect y="30" width="22" height="18" rx="5"/><rect x="34" y="30" width="22" height="18" rx="5"/><rect x="68" y="30" width="22" height="18" rx="5" fill="#FF6B2C"/><rect x="102" y="30" width="22" height="18" rx="5"/>
+      <rect y="30" width="22" height="18" rx="5"/><rect x="34" y="30" width="22" height="18" rx="5"/><rect x="68" y="30" width="22" height="18" rx="5" fill="#0A2DA3"/><rect x="102" y="30" width="22" height="18" rx="5"/>
       <rect y="60" width="22" height="18" rx="5"/><rect x="34" y="60" width="22" height="18" rx="5"/><rect x="68" y="60" width="22" height="18" rx="5"/><rect x="102" y="60" width="22" height="18" rx="5"/>
     </g>
   </g>

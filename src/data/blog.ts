@@ -4,6 +4,8 @@
 // (le plus récent en premier), puis `npm run build`.
 // Tant que la liste est vide, la page Blog affiche « Nos premiers articles arrivent bientôt ».
 
+export const categories = ['Recrutement', 'Conformité', 'Paie', 'Stratégie RH', 'Droit du travail', 'Guides', 'Actualités'] as const;
+
 export type BlogBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; text: string }
@@ -17,7 +19,7 @@ export type BlogPost = {
   excerpt: string;
   /** Date de publication, format AAAA-MM-JJ */
   date: string;
-  category: 'Recrutement' | 'Conformité' | 'Paie' | 'Stratégie RH' | 'Droit du travail' | 'Actualités';
+  category: (typeof categories)[number];
   /** Illustration de couverture (public/illustrations/… ou public/photos/…) */
   cover?: string;
   author?: string;
@@ -53,4 +55,14 @@ export function readingTime(post: BlogPost) {
 
 export function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+/** Identifiant d'ancre d'un intertitre (sommaire de l'article). */
+export function headingId(text: string) {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }

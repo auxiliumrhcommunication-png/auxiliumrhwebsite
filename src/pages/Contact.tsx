@@ -1,20 +1,24 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { Mail, Phone, MapPin, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Mail, Phone, MapPin, MessageCircle, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
-import { contact } from '../data/site';
-import { usePageTitle } from '../hooks/usePageTitle';
+import { contact, whatsappHref } from '../data/site';
+import { services } from '../data/services';
+import { useSeo } from '../hooks/useSeo';
 
 // Le site n'a pas de serveur : à l'envoi, le formulaire ouvre la messagerie
 // du visiteur avec un e-mail pré-rempli adressé au cabinet.
 
 type FieldName = 'nom' | 'email' | 'message';
-type Values = Record<FieldName | 'entreprise', string>;
+type Values = Record<FieldName | 'entreprise' | 'telephone' | 'motif', string>;
 
 const errorMessages: Record<FieldName, string> = {
   nom: 'Indiquez votre nom.',
   email: 'Indiquez une adresse e-mail valide, par exemple nom@entreprise.ga.',
-  message: 'Écrivez votre message.',
+  message: 'Décrivez votre besoin en quelques lignes.',
 };
+
+const motifs = ['Diagnostic RH', ...services.map((s) => s.navLabel), 'Demande de devis', 'Autre demande'];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -25,17 +29,28 @@ function validate(name: FieldName, value: string) {
 }
 
 export default function Contact() {
-  usePageTitle('Contact');
-  const [values, setValues] = useState<Values>({ nom: '', email: '', entreprise: '', message: '' });
+  useSeo({
+    title: 'Contact et diagnostic RH',
+    description:
+      'Contactez Auxilium RH à Libreville par e-mail ou par téléphone pour un diagnostic RH, un audit, un devis ou un accompagnement en ressources humaines.',
+  });
+  // /contact?motif=Recrutement pré-remplit le motif
+  const [params] = useSearchParams();
+  const initialMotif = motifs.includes(params.get('motif') ?? '') ? params.get('motif')! : motifs[0];
+
+  const [values, setValues] = useState<Values>({ nom: '', email: '', telephone: '', entreprise: '', motif: initialMotif, message: '' });
   const [errors, setErrors] = useState<Partial<Record<FieldName, boolean>>>({});
   const [summary, setSummary] = useState<FieldName[]>([]);
   const [sent, setSent] = useState(false);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const wa = whatsappHref();
 
   const update = (name: keyof Values, value: string) => {
     setValues((v) => ({ ...v, [name]: value }));
     // Une erreur affichée disparaît dès que le champ devient valide
-    if (name !== 'entreprise' && errors[name]) setErrors((e) => ({ ...e, [name]: !validate(name, value) }));
+    if (name in errorMessages && errors[name as FieldName]) {
+      setErrors((e) => ({ ...e, [name]: !validate(name as FieldName, value) }));
+    }
   };
 
   // Vérifie le champ quand on le quitte (s'il a été rempli)
@@ -56,66 +71,69 @@ export default function Contact() {
 
     const nom = values.nom.trim();
     const entreprise = values.entreprise.trim();
-    const subject = `Demande de contact — ${nom}${entreprise ? ` (${entreprise})` : ''}`;
+    const telephone = values.telephone.trim();
+    const subject = `${values.motif} — ${nom}${entreprise ? ` (${entreprise})` : ''}`;
     const body = [
       values.message.trim(),
       '',
       '—',
+      `Motif : ${values.motif}`,
       `Nom : ${nom}`,
       `E-mail : ${values.email.trim()}`,
-      ...(entreprise ? [`Entreprise : ${entreprise}`] : []),
+      ...(telephone ? [`Téléphone : ${telephone}`] : []),
+      ...(entreprise ? [`Organisation : ${entreprise}`] : []),
     ].join('\n');
 
     window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
-  const inputClass = (name: FieldName | 'entreprise') =>
-    `w-full rounded-xl border bg-white px-4 py-3 text-base text-ink transition duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
-      name !== 'entreprise' && errors[name]
-        ? 'border-red-600 focus:ring-red-100'
-        : 'border-slate-300 focus:border-brand-600 focus:ring-brand-100'
-    }`;
-
+  const describedBy = (name: FieldName) => (errors[name] ? `${name}-error` : undefined);
   const fieldError = (name: FieldName) =>
     errors[name] ? (
-      <p id={`${name}-error`} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold text-red-700">
+      <p id={`${name}-error`} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold text-danger">
         <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
         {errorMessages[name]}
       </p>
     ) : null;
 
   const coords = [
-    { icon: Mail, label: 'E-mail', value: contact.email, href: `mailto:${contact.email}` },
     { icon: Phone, label: 'Téléphone', value: contact.phoneDisplay, href: contact.phoneHref },
+    ...(wa ? [{ icon: MessageCircle, label: 'WhatsApp', value: 'Écrire sur WhatsApp', href: wa, external: true }] : []),
+    { icon: Mail, label: 'E-mail', value: contact.email, href: `mailto:${contact.email}` },
     { icon: MapPin, label: 'Adresse', value: contact.city },
-  ];
+  ] as { icon: typeof Phone; label: string; value: string; href?: string; external?: boolean }[];
 
   return (
     <>
       <PageHeader
-        crumb="Contact"
+        crumbs={[{ label: 'Contact' }]}
         eyebrow="Contact"
-        title="Parlons de votre organisation"
-        lead="Une question, un besoin de recrutement, un audit ou un accompagnement RH ? Écrivez-nous ou appelez-nous. Un premier diagnostic RH peut être proposé gratuitement, sans engagement."
+        title="Demander un diagnostic RH"
+        lead="Un besoin de recrutement, un audit, une question de paie ou de conformité ? Décrivez-nous votre situation : un premier diagnostic RH peut être proposé gratuitement et sans engagement, selon les modalités de prise en charge du cabinet."
       />
 
-      <section className="py-16 sm:py-20">
-        <div className="container-site grid items-start gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+      <section className="section">
+        <div className="container-site grid items-start gap-ds-xl lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-ds-2xl">
           <div>
-            <h2 className="section-title mb-6 !text-3xl">Nos coordonnées</h2>
-            <ul className="space-y-4">
-              {coords.map(({ icon: Icon, label, value, href }) => (
-                <li key={label} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-card">
-                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
+            <h2 className="title-sm">Parler à un expert RH</h2>
+            <p className="mt-2 text-ink-700">Joignez-nous directement :</p>
+            <ul className="mt-ds-md border-t border-line">
+              {coords.map(({ icon: Icon, label, value, href, external }) => (
+                <li key={label} className="flex items-center gap-4 border-b border-line py-4">
+                  <Icon className="h-5 w-5 shrink-0 text-brand-600" strokeWidth={1.75} aria-hidden="true" />
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-ink-subtle">{label}</p>
+                    <p className="text-sm text-ink-600">{label}</p>
                     {href ? (
-                      <a href={href} className="text-lg font-bold text-ink hover:text-brand-600 hover:underline">{value}</a>
+                      <a
+                        href={href}
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="text-lg font-semibold text-ink underline-offset-4 hover:text-brand-600 hover:underline"
+                      >
+                        {value}
+                      </a>
                     ) : (
-                      <p className="text-lg font-bold text-ink">{value}</p>
+                      <p className="text-lg font-semibold text-ink">{value}</p>
                     )}
                   </div>
                 </li>
@@ -123,13 +141,9 @@ export default function Contact() {
             </ul>
           </div>
 
-          <form
-            noValidate
-            onSubmit={onSubmit}
-            aria-labelledby="form-title"
-            className="space-y-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-lift sm:p-8"
-          >
-            <h2 id="form-title" className="text-2xl font-extrabold text-ink">Écrivez-nous</h2>
+          <form noValidate onSubmit={onSubmit} aria-labelledby="form-title" className="rounded-lg border border-line p-ds-md sm:p-ds-lg">
+            <h2 id="form-title" className="title-sm">Écrivez-nous</h2>
+            <p className="mt-1 text-sm text-ink-600">Les champs sans mention « facultatif » sont obligatoires.</p>
 
             {summary.length > 0 && (
               <div
@@ -137,9 +151,9 @@ export default function Contact() {
                 tabIndex={-1}
                 role="alert"
                 aria-labelledby="error-summary-title"
-                className="rounded-xl border-2 border-red-600 bg-red-50 p-4 focus:outline-none focus:ring-4 focus:ring-red-200"
+                className="mt-ds-md rounded border-l-4 border-danger bg-red-50 p-4 focus:outline-none focus:ring-2 focus:ring-danger/40"
               >
-                <h3 id="error-summary-title" className="mb-2 font-bold text-red-700">Le formulaire contient des erreurs</h3>
+                <h3 id="error-summary-title" className="mb-2 font-semibold text-danger">Le formulaire contient des erreurs</h3>
                 <ul className="list-disc space-y-1 pl-5">
                   {summary.map((n) => (
                     <li key={n}>
@@ -149,7 +163,7 @@ export default function Contact() {
                           e.preventDefault();
                           document.getElementById(n)?.focus();
                         }}
-                        className="font-semibold text-red-700 underline"
+                        className="font-semibold text-danger underline"
                       >
                         {errorMessages[n]}
                       </a>
@@ -159,50 +173,59 @@ export default function Contact() {
               </div>
             )}
 
-            <div>
-              <label htmlFor="nom" className="mb-1.5 block font-bold text-ink">Nom</label>
-              <input id="nom" name="nom" type="text" autoComplete="name" required value={values.nom}
-                onChange={(e) => update('nom', e.target.value)} onBlur={() => onBlur('nom')}
-                aria-invalid={!!errors.nom} aria-describedby={errors.nom ? 'nom-error' : undefined} className={inputClass('nom')} />
-              {fieldError('nom')}
+            <div className="mt-ds-md grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="motif" className="field-label">Motif de votre demande</label>
+                <select id="motif" name="motif" value={values.motif} onChange={(e) => update('motif', e.target.value)} className="field-input">
+                  {motifs.map((m) => <option key={m}>{m}</option>)}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="nom" className="field-label">Nom</label>
+                <input id="nom" name="nom" type="text" autoComplete="name" required value={values.nom}
+                  onChange={(e) => update('nom', e.target.value)} onBlur={() => onBlur('nom')}
+                  aria-invalid={!!errors.nom} aria-describedby={describedBy('nom')} className="field-input" />
+                {fieldError('nom')}
+              </div>
+              <div>
+                <label htmlFor="email" className="field-label">E-mail</label>
+                <input id="email" name="email" type="email" autoComplete="email" required value={values.email}
+                  onChange={(e) => update('email', e.target.value)} onBlur={() => onBlur('email')}
+                  aria-invalid={!!errors.email} aria-describedby={describedBy('email')} className="field-input" />
+                {fieldError('email')}
+              </div>
+              <div>
+                <label htmlFor="telephone" className="field-label">Téléphone <span className="font-normal text-ink-600">(facultatif)</span></label>
+                <input id="telephone" name="telephone" type="tel" autoComplete="tel" value={values.telephone}
+                  onChange={(e) => update('telephone', e.target.value)} className="field-input" />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="entreprise" className="field-label">Organisation <span className="font-normal text-ink-600">(facultatif)</span></label>
+                <input id="entreprise" name="entreprise" type="text" autoComplete="organization" value={values.entreprise}
+                  onChange={(e) => update('entreprise', e.target.value)} className="field-input" />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="message" className="field-label">Votre besoin</label>
+                <textarea id="message" name="message" rows={5} required value={values.message}
+                  onChange={(e) => update('message', e.target.value)} onBlur={() => onBlur('message')}
+                  aria-invalid={!!errors.message} aria-describedby={describedBy('message')}
+                  className="field-input min-h-[140px] resize-y" />
+                {fieldError('message')}
+              </div>
             </div>
 
-            <div>
-              <label htmlFor="email" className="mb-1.5 block font-bold text-ink">E-mail</label>
-              <input id="email" name="email" type="email" autoComplete="email" required value={values.email}
-                onChange={(e) => update('email', e.target.value)} onBlur={() => onBlur('email')}
-                aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-error' : undefined} className={inputClass('email')} />
-              {fieldError('email')}
-            </div>
-
-            <div>
-              <label htmlFor="entreprise" className="mb-1.5 block font-bold text-ink">
-                Entreprise <span className="font-normal text-ink-subtle">(facultatif)</span>
-              </label>
-              <input id="entreprise" name="entreprise" type="text" autoComplete="organization" value={values.entreprise}
-                onChange={(e) => update('entreprise', e.target.value)} className={inputClass('entreprise')} />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="mb-1.5 block font-bold text-ink">Message</label>
-              <textarea id="message" name="message" rows={5} required value={values.message}
-                onChange={(e) => update('message', e.target.value)} onBlur={() => onBlur('message')}
-                aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined}
-                className={`${inputClass('message')} min-h-[140px] resize-y`} />
-              {fieldError('message')}
-            </div>
-
-            <button type="submit" className="btn-primary w-full sm:w-auto">
-              Envoyer
+            <button type="submit" className="btn-primary mt-ds-md w-full sm:w-auto">
+              Envoyer ma demande
               <Send className="h-5 w-5" aria-hidden="true" />
             </button>
-            <p className="text-sm text-ink-muted">
-              En cliquant sur « Envoyer », votre messagerie s'ouvre avec votre message prêt à partir vers {contact.email}.
+            <p className="mt-3 text-sm text-ink-600">
+              En cliquant sur « Envoyer ma demande », votre messagerie s'ouvre avec votre message prêt à partir vers {contact.email}.
+              Aucune donnée n'est enregistrée par ce site.
             </p>
 
             <p role="status" aria-live="polite">
               {sent && (
-                <span className="flex items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 font-semibold text-emerald-800">
+                <span className="mt-ds-md flex items-start gap-2 rounded border-l-4 border-ok bg-green-50 p-4 font-semibold text-ok">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
                   Votre messagerie devrait s'ouvrir avec votre message : il ne reste qu'à cliquer sur « Envoyer ». Si rien ne
                   s'ouvre, écrivez-nous directement à {contact.email}.

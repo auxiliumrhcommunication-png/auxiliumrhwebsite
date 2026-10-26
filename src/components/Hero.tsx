@@ -1,122 +1,58 @@
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, BadgeCheck, UserCheck } from 'lucide-react';
-import HeroDashboard from './HeroDashboard';
-import { gsap, useGSAP, FULL_MOTION } from '../design/gsap';
-import { layout, motion, parallaxEnabled, parallaxAmount } from '../design';
+import { MapPin } from 'lucide-react';
+import ContactActions from './ContactActions';
+import BrandPanel from './BrandPanel';
+import SlotImage, { hasPhoto } from './SlotImage';
+import { heroLayout } from '../design';
+
+// Preuves factuelles, issues de la présentation du cabinet (aucun chiffre inventé)
+const proofs = [
+  'Cabinet basé à Libreville',
+  '6 domaines d\'expertise RH',
+  'De la TPE au grand groupe',
+  'Premier diagnostic sans engagement*',
+];
 
 /**
- * Ouverture de l'accueil : promesse, double appel à l'action, aperçu du diagnostic.
- * Mise en page selon --variance : centrée (1-3), deux colonnes (4-7), asymétrique (8-10).
- * Entrée animée et parallaxe selon --motion.
+ * Ouverture de l'accueil (direction « Éditorial institutionnel ») : promesse,
+ * appels à l'action principal et secondaire, preuves factuelles, visuel.
+ * Le visuel est la photo « equipe » si elle existe, sinon le panneau de marque.
  */
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
-    mm.add(FULL_MOTION, () => {
-      // Entrée en cascade : texte puis tableau de bord
-      const tl = gsap.timeline({ defaults: { ease: motion.section.ease, duration: motion.section.duration } });
-      tl.from('[data-hero-text] > *', { opacity: 0, y: motion.section.y, stagger: motion.section.stagger })
-        .from('[data-hero-visual]', { opacity: 0, y: motion.section.y * 1.5, scale: 0.96 }, '-=0.3')
-        .from('[data-hero-chip]', { opacity: 0, scale: 0.8, stagger: 0.12, ease: 'back.out(1.7)' }, '-=0.2');
-
-      // Parallaxe : les pastilles flottantes bougent plus vite que le tableau de bord
-      if (parallaxEnabled) {
-        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el, i) => {
-          gsap.to(el, {
-            yPercent: -parallaxAmount * (i + 1),
-            ease: 'none',
-            scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: 0.5 },
-          });
-        });
-      }
-    });
-  }, { scope: ref });
-
-  const centered = layout === 'centered';
-  const bold = layout === 'bold';
-
-  const text = (
-    <div data-hero-text className={centered ? 'mx-auto max-w-3xl text-center' : ''}>
-      <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3.5 py-1.5 text-sm font-semibold text-ink shadow-sm backdrop-blur">
-        <MapPin className="h-4 w-4 text-brand-600" aria-hidden="true" />
-        Cabinet de conseil RH · Libreville, Gabon
-      </p>
-      <h1
-        id="hero-title"
-        className={`font-extrabold leading-[1.05] tracking-tight text-night-950 ${
-          bold ? 'text-5xl sm:text-6xl lg:text-[4.5rem]' : 'text-4xl sm:text-5xl lg:text-[3.6rem]'
-        }`}
-      >
-        Le partenaire stratégique de votre <span className="text-brand-600">capital humain</span>.
-      </h1>
-      <p className={`mt-6 text-lg font-medium leading-relaxed text-night-900 ${centered ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
-        Recrutement, paie, audit social et conformité au Code du travail gabonais : Auxilium RH structure votre fonction RH
-        pour sécuriser vos obligations et améliorer la performance de vos équipes.
-      </p>
-      <div className={`mt-9 flex flex-col gap-3 sm:flex-row ${centered ? 'sm:justify-center' : ''}`}>
-        <Link to="/contact" className="btn-primary">
-          Demander un diagnostic RH
-          <ArrowRight className="h-5 w-5" aria-hidden="true" />
-        </Link>
-        <Link to="/services" className="btn bg-white text-brand-700 shadow-sm hover:-translate-y-0.5 hover:bg-brand-50">Découvrir nos services</Link>
-      </div>
-      <p className="mt-5 inline-flex rounded-xl bg-white/80 px-3 py-1 text-sm font-medium text-ink backdrop-blur">
-        Premier diagnostic sans engagement, selon les modalités du cabinet.
-      </p>
-    </div>
-  );
-
-  const visual = (
-    <div className={`relative ${centered ? 'mx-auto mt-ds-2xl max-w-2xl' : ''} ${bold ? 'lg:-mr-16 lg:mt-16' : ''}`}>
-      <div data-hero-visual data-parallax>
-        <HeroDashboard />
-      </div>
-      {/* Pastilles flottantes (décoratives : l'information est déjà dans le tableau) */}
-      <div
-        data-hero-chip
-        data-parallax
-        aria-hidden="true"
-        className="absolute -bottom-8 -right-3 hidden items-center gap-3 rounded-2xl bg-white px-4 py-3 text-ink shadow-widget sm:flex lg:-right-8"
-      >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
-          <BadgeCheck className="h-5 w-5" />
-        </span>
-        <span>
-          <span className="block text-xs font-semibold text-ink-subtle">Immatriculation</span>
-          <span className="block text-sm font-extrabold">CNSS à jour</span>
-        </span>
-      </div>
-      <div
-        data-hero-chip
-        data-parallax
-        aria-hidden="true"
-        className="absolute -left-4 -top-8 hidden items-center gap-3 rounded-2xl bg-white px-4 py-3 text-ink shadow-widget sm:flex"
-      >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700">
-          <UserCheck className="h-5 w-5" />
-        </span>
-        <span>
-          <span className="block text-xs font-semibold text-ink-subtle">Recrutement</span>
-          <span className="block text-sm font-extrabold">Profil retenu</span>
-        </span>
-      </div>
-    </div>
-  );
+  const centered = heroLayout === 'centered';
 
   return (
-    // Carte arrondie en léger retrait des bords, fond « ciel » (classe .hero-sky dans index.css)
-    <section ref={ref} className="px-2 pt-2 sm:px-3 sm:pt-3" aria-labelledby="hero-title">
-      <div className="hero-sky relative overflow-hidden rounded-[28px]">
-        <div
-          className={`container-site relative py-ds-2xl lg:py-ds-3xl ${
-            centered ? '' : `grid items-center gap-ds-2xl ${bold ? 'lg:grid-cols-[1.25fr_1fr]' : 'lg:grid-cols-[1.1fr_1fr]'}`
-          }`}
-        >
-          {text}
-          {visual}
+    <section className="border-b border-line bg-white" aria-labelledby="hero-title">
+      <div
+        className={`container-site grid gap-ds-xl py-ds-xl lg:py-ds-2xl ${
+          centered ? 'text-center' : 'lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-ds-2xl'
+        }`}
+      >
+        <div className={centered ? 'mx-auto max-w-3xl' : ''}>
+          <p className={`eyebrow inline-flex items-center gap-2 ${centered ? 'justify-center' : ''}`}>
+            <MapPin className="h-4 w-4" aria-hidden="true" />
+            Cabinet de conseil en ressources humaines · Gabon
+          </p>
+          <h1 id="hero-title" className="title-xl">
+            Le partenaire stratégique de votre capital humain.
+          </h1>
+          <p className={`mt-ds-md max-w-prose text-lead text-ink-700 ${centered ? 'mx-auto' : ''}`}>
+            Recrutement, audit et conformité, paie et administration du personnel, stratégie RH : Auxilium RH aide les employeurs
+            à structurer leur fonction RH et à sécuriser leurs obligations sociales.
+          </p>
+          <ContactActions className={`mt-ds-lg ${centered ? 'sm:justify-center' : ''}`} />
+
+          <ul className={`mt-ds-xl grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line pt-ds-md text-sm font-semibold text-ink-700 ${centered ? 'text-left' : ''}`}>
+            {proofs.map((p) => <li key={p} className="border-l-2 border-brand-600 pl-3">{p}</li>)}
+          </ul>
+          <p className="mt-3 text-sm text-ink-600">* Selon les modalités de prise en charge du cabinet.</p>
+        </div>
+
+        <div className={centered ? 'mx-auto w-full max-w-xl' : ''}>
+          {hasPhoto('equipe') ? (
+            <SlotImage slot="equipe" priority alt="L'équipe Auxilium RH" className="rounded-lg" />
+          ) : (
+            <BrandPanel />
+          )}
         </div>
       </div>
     </section>

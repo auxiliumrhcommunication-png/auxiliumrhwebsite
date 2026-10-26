@@ -1,6 +1,4 @@
-import { Quote } from 'lucide-react';
 import { testimonials } from '../data/proof';
-import Reveal, { RevealGroup } from './Reveal';
 
 /**
  * Témoignages clients (preuve sociale).
@@ -11,26 +9,22 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="py-ds-2xl lg:py-ds-3xl" aria-labelledby="temoignages-title">
+    <section className="section border-t border-line" aria-labelledby="temoignages-title">
       <div className="container-site">
-        <Reveal className="mb-ds-xl max-w-2xl">
-          <p className="eyebrow">Ils nous font confiance</p>
-          <h2 id="temoignages-title" className="section-title">Ce que disent nos clients</h2>
-        </Reveal>
-        <RevealGroup as="ul" className="grid gap-ds-md md:grid-cols-2 lg:grid-cols-3">
+        <p className="eyebrow">Ils nous font confiance</p>
+        <h2 id="temoignages-title" className="title-md mb-ds-xl">Ce que disent nos clients</h2>
+        <ul className="grid gap-ds-lg md:grid-cols-2">
           {testimonials.map((t) => (
-            <li key={t.name}>
-              <figure className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
-                <Quote className="mb-4 h-8 w-8 text-brand-200" aria-hidden="true" />
-                <blockquote className="flex-1 text-ink">« {t.quote} »</blockquote>
-                <figcaption className="mt-6 border-t border-slate-100 pt-4">
-                  <p className="font-bold text-ink">{t.name}</p>
-                  <p className="text-sm text-ink-muted">{t.role}, {t.company}</p>
+            <li key={t.name} className="border-l-2 border-brand-600 pl-ds-md">
+              <figure>
+                <blockquote className="font-display text-display-sm text-ink">« {t.quote} »</blockquote>
+                <figcaption className="mt-4 text-ink-700">
+                  <span className="font-semibold text-ink">{t.name}</span>, {t.role}, {t.company}
                 </figcaption>
               </figure>
             </li>
           ))}
-        </RevealGroup>
+        </ul>
       </div>
     </section>
   );

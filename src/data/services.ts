@@ -2,7 +2,12 @@ import type { LucideIcon } from 'lucide-react';
 import { BriefcaseBusiness, ShieldCheck, Wallet, Network, Scale, Handshake } from 'lucide-react';
 
 export type Service = {
+  /** Ancien identifiant (ancres /services#…), conservé pour les redirections */
   id: string;
+  /** Adresse de la page : /services/<slug> */
+  slug: string;
+  /** Illustration ou photo associée (voir SlotImage), si disponible */
+  image?: 'recrutement' | 'conformite' | 'paie';
   icon: LucideIcon;
   title: string;
   /** Libellé court (accès rapide, menus) */
@@ -16,6 +21,8 @@ export type Service = {
 export const services: Service[] = [
   {
     id: 'recrutement',
+    slug: 'recrutement',
+    image: 'recrutement',
     navLabel: 'Recrutement',
     icon: BriefcaseBusiness,
     title: 'Recrutement et mobilité professionnelle',
@@ -31,6 +38,8 @@ export const services: Service[] = [
   },
   {
     id: 'audit',
+    slug: 'audit-conformite',
+    image: 'conformite',
     navLabel: 'Audit et conformité',
     icon: ShieldCheck,
     title: 'Audit, diagnostic et conformité RH',
@@ -47,6 +56,8 @@ export const services: Service[] = [
   },
   {
     id: 'paie',
+    slug: 'paie-administration',
+    image: 'paie',
     navLabel: 'Administration et paie',
     icon: Wallet,
     title: 'Administration du personnel et gestion de la paie',
@@ -64,6 +75,7 @@ export const services: Service[] = [
   },
   {
     id: 'strategie',
+    slug: 'strategie-rh',
     navLabel: 'Stratégie RH',
     icon: Network,
     title: 'Conseil en organisation et stratégie RH',
@@ -81,6 +93,7 @@ export const services: Service[] = [
   },
   {
     id: 'droit',
+    slug: 'droit-du-travail',
     navLabel: 'Droit du travail',
     icon: Scale,
     title: 'Conseil en droit du travail et conformité sociale',
@@ -97,6 +110,7 @@ export const services: Service[] = [
   },
   {
     id: 'externalisation',
+    slug: 'externalisation',
     navLabel: 'Externalisation',
     icon: Handshake,
     title: 'Externalisation des fonctions RH',
@@ -111,4 +125,13 @@ export const services: Service[] = [
       'Accompagnement ponctuel ou régulier selon les besoins.',
     ],
   },
+];
+
+export const serviceBySlug = (slug?: string) => services.find((s) => s.slug === slug);
+
+/** Portes d'entrée « par besoin » (accueil) */
+export const needs = [
+  { label: 'Recruter', text: 'Trouver et intégrer les bons profils.', slug: 'recrutement' },
+  { label: 'Me mettre en conformité', text: 'Contrats, dossiers salariés, obligations sociales.', slug: 'audit-conformite' },
+  { label: 'Fiabiliser ma paie', text: 'Paie, CNSS et déclarations sociales.', slug: 'paie-administration' },
 ];

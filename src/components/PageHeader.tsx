@@ -2,33 +2,42 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
+export type Crumb = { label: string; to?: string };
+
 type PageHeaderProps = {
   eyebrow: string;
   title: string;
-  lead: string;
-  /** Libellé de la page dans le fil d'Ariane */
-  crumb: string;
+  lead?: string;
+  /** Fil d'Ariane après « Accueil » ; le dernier élément est la page courante */
+  crumbs: Crumb[];
   children?: ReactNode;
 };
 
-/** Bandeau sombre en haut des pages intérieures, avec fil d'Ariane. */
-export default function PageHeader({ eyebrow, title, lead, crumb, children }: PageHeaderProps) {
+/** En-tête éditorial des pages intérieures : fil d'Ariane, sur-titre, titre, chapeau, filet. */
+export default function PageHeader({ eyebrow, title, lead, crumbs, children }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden bg-night-950 text-white">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_380px_at_85%_0%,rgba(3,51,179,0.55),transparent_70%)]" />
-      <div className="container-site relative py-ds-2xl lg:py-ds-3xl">
-        <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-slate-300">
+    <header className="border-b border-line bg-white">
+      <div className="container-site pb-ds-xl pt-ds-lg lg:pb-ds-2xl lg:pt-ds-xl">
+        <nav aria-label="Fil d'Ariane" className="mb-ds-lg text-sm text-ink-600">
           <ol className="flex flex-wrap items-center gap-1.5">
-            <li><Link to="/" className="underline-offset-4 hover:text-white hover:underline">Accueil</Link></li>
-            <li aria-hidden="true"><ChevronRight className="h-4 w-4" /></li>
-            <li aria-current="page" className="font-semibold text-white">{crumb}</li>
+            <li><Link to="/" className="inline-flex min-h-[32px] items-center hover:text-brand-600 hover:underline">Accueil</Link></li>
+            {crumbs.map((c, i) => (
+              <li key={c.label} className="flex items-center gap-1.5">
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                {c.to && i < crumbs.length - 1 ? (
+                  <Link to={c.to} className="inline-flex min-h-[32px] items-center hover:text-brand-600 hover:underline">{c.label}</Link>
+                ) : (
+                  <span aria-current="page" className="font-semibold text-ink">{c.label}</span>
+                )}
+              </li>
+            ))}
           </ol>
         </nav>
-        <p className="eyebrow text-accent-400">{eyebrow}</p>
-        <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">{title}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-slate-300">{lead}</p>
+        <p className="eyebrow">{eyebrow}</p>
+        <h1 className="title-lg max-w-4xl">{title}</h1>
+        {lead && <p className="mt-6 max-w-prose text-lead text-ink-700">{lead}</p>}
         {children}
       </div>
-    </section>
+    </header>
   );
 }
