@@ -39,7 +39,7 @@ src/
     Footer.tsx              Pied de page
     PageHeader.tsx          En-tête des pages intérieures
     Logo.tsx, Reveal.tsx    Logo, apparition au défilement
-  pages/                    Accueil, Services, Secteurs, À propos, Contact, 404
+  pages/                    Accueil, Services, Secteurs, À propos, Blog (+ article), Contact, 404
 design-system/              Charte graphique (non publiée)
 ```
 
