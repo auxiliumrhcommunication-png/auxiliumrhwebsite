@@ -31,7 +31,7 @@ src/
     proof.ts                Chiffres d'impact et témoignages (réels uniquement)
   components/
     Navbar.tsx              Barre fixe, sous-menu Services, menu mobile
-    Hero.tsx, BrandPanel.tsx Ouverture de l'accueil et visuel de marque
+    Hero.tsx, DiagnosticPanel.tsx Ouverture de l'accueil et contenu du premier diagnostic
     NeedsBar.tsx            Portes d'entrée « Vous souhaitez… »
     ServicesIndex.tsx       Index numéroté des 6 services
     DiagnosticSteps.tsx     Les 4 étapes de l'accompagnement

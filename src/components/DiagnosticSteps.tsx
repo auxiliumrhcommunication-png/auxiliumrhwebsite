@@ -8,7 +8,7 @@ export default function DiagnosticSteps({
   lead = 'Chaque organisation possède ses propres contraintes. Notre accompagnement s\'inscrit dans une logique de proximité, d\'analyse et de résultats concrets.',
 }: DiagnosticStepsProps) {
   return (
-    <section className="section" aria-labelledby="etapes-title">
+    <section className="section border-t border-line" aria-labelledby="etapes-title">
       <div className="container-site">
         <div className="mb-ds-xl max-w-3xl">
           <p className="eyebrow">Notre approche</p>

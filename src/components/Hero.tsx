@@ -1,6 +1,5 @@
-import { MapPin } from 'lucide-react';
 import ContactActions from './ContactActions';
-import BrandPanel from './BrandPanel';
+import DiagnosticPanel from './DiagnosticPanel';
 import SlotImage, { hasPhoto } from './SlotImage';
 import { heroLayout } from '../design';
 
@@ -9,13 +8,12 @@ const proofs = [
   'Cabinet basé à Libreville',
   '6 domaines d\'expertise RH',
   'De la TPE au grand groupe',
-  'Premier diagnostic sans engagement*',
 ];
 
 /**
  * Ouverture de l'accueil (direction « Éditorial institutionnel ») : promesse,
  * appels à l'action principal et secondaire, preuves factuelles, visuel.
- * Le visuel est la photo « equipe » si elle existe, sinon le panneau de marque.
+ * Le visuel est la photo « equipe » si elle existe, sinon le contenu du premier diagnostic.
  */
 export default function Hero() {
   const centered = heroLayout === 'centered';
@@ -28,8 +26,7 @@ export default function Hero() {
         }`}
       >
         <div className={centered ? 'mx-auto max-w-3xl' : ''}>
-          <p className={`eyebrow inline-flex items-center gap-2 ${centered ? 'justify-center' : ''}`}>
-            <MapPin className="h-4 w-4" aria-hidden="true" />
+          <p className="eyebrow">
             Cabinet de conseil en ressources humaines · Gabon
           </p>
           <h1 id="hero-title" className="title-xl">
@@ -41,17 +38,16 @@ export default function Hero() {
           </p>
           <ContactActions className={`mt-ds-lg ${centered ? 'sm:justify-center' : ''}`} />
 
-          <ul className={`mt-ds-xl grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line pt-ds-md text-sm font-semibold text-ink-700 ${centered ? 'text-left' : ''}`}>
-            {proofs.map((p) => <li key={p} className="border-l-2 border-brand-600 pl-3">{p}</li>)}
+          <ul className={`mt-ds-xl flex flex-col gap-2 border-t border-line pt-ds-md font-semibold text-ink sm:flex-row sm:flex-wrap sm:gap-x-ds-md ${centered ? 'sm:justify-center' : ''}`}>
+            {proofs.map((p) => <li key={p}>{p}</li>)}
           </ul>
-          <p className="mt-3 text-sm text-ink-600">* Selon les modalités de prise en charge du cabinet.</p>
         </div>
 
         <div className={centered ? 'mx-auto w-full max-w-xl' : ''}>
           {hasPhoto('equipe') ? (
             <SlotImage slot="equipe" priority alt="L'équipe Auxilium RH" className="rounded-lg" />
           ) : (
-            <BrandPanel />
+            <DiagnosticPanel />
           )}
         </div>
       </div>

@@ -1,8 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import {
-  Store, Building2, Factory, Rocket,
-  Wrench, Target, ShieldCheck, Globe2, Lock, TriangleAlert,
-} from 'lucide-react';
+import { Store, Building2, Factory, Rocket } from 'lucide-react';
 
 // image : illustration décorative (public/illustrations/)
 export const sectors: { icon: LucideIcon; title: string; text: string; image: string }[] = [
@@ -39,13 +36,13 @@ export const steps = [
   { title: 'Suivre et améliorer', text: 'Nous favorisons le suivi des actions engagées et l\'amélioration continue de vos pratiques RH.' },
 ];
 
-export const reasons: { icon: LucideIcon; title: string; text: string }[] = [
-  { icon: Wrench, title: 'Une expertise RH de terrain', text: 'Une approche concrète des problématiques rencontrées par les employeurs et les salariés.' },
-  { icon: Target, title: 'Une approche personnalisée', text: 'Des solutions adaptées à la taille, aux moyens et aux objectifs de chaque organisation.' },
-  { icon: ShieldCheck, title: 'La conformité comme priorité', text: 'Une attention particulière portée aux obligations administratives, sociales et réglementaires.' },
-  { icon: Globe2, title: 'Une vision globale des RH', text: 'Du recrutement à la gestion quotidienne du personnel, en passant par la stratégie RH.' },
-  { icon: Lock, title: 'Proximité et confidentialité', text: 'Un accompagnement professionnel fondé sur l\'écoute et la discrétion.' },
-  { icon: TriangleAlert, title: 'Une logique de prévention', text: 'Identifier les risques et corriger les insuffisances avant qu\'ils ne deviennent des difficultés majeures.' },
+export const reasons: { title: string; text: string }[] = [
+  { title: 'Une expertise RH de terrain', text: 'Une approche concrète des problématiques rencontrées par les employeurs et les salariés.' },
+  { title: 'Une approche personnalisée', text: 'Des solutions adaptées à la taille, aux moyens et aux objectifs de chaque organisation.' },
+  { title: 'La conformité comme priorité', text: 'Une attention particulière portée aux obligations administratives, sociales et réglementaires.' },
+  { title: 'Une vision globale des RH', text: 'Du recrutement à la gestion quotidienne du personnel, en passant par la stratégie RH.' },
+  { title: 'Proximité et confidentialité', text: 'Un accompagnement professionnel fondé sur l\'écoute et la discrétion.' },
+  { title: 'Une logique de prévention', text: 'Identifier les risques et corriger les insuffisances avant qu\'ils ne deviennent des difficultés majeures.' },
 ];
 
 export const commitments = [

@@ -13,7 +13,6 @@ export default function ServicesIndex({ detail = 'short', headingLevel: H = 'h3'
   return (
     <ol className="border-t border-line">
       {services.map((s, i) => {
-        const Icon = s.icon;
         return (
           <li key={s.slug} className="border-b border-line">
             <Link
@@ -23,8 +22,7 @@ export default function ServicesIndex({ detail = 'short', headingLevel: H = 'h3'
               <span className="font-display text-display-sm font-semibold text-brand-600" aria-hidden="true">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <H className="flex items-center gap-3 font-display text-display-sm font-semibold text-ink group-hover:text-brand-700">
-                <Icon className="hidden h-6 w-6 shrink-0 text-brand-600 sm:block" strokeWidth={1.75} aria-hidden="true" />
+              <H className="font-display text-display-sm font-semibold text-ink group-hover:text-brand-700">
                 {s.title}
               </H>
               <p className="col-span-3 col-start-1 text-ink-700 sm:col-span-2 sm:col-start-2 lg:col-span-1 lg:col-start-3">

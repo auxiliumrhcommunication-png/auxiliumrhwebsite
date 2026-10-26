@@ -14,18 +14,12 @@ export default function ReasonsSection() {
           </p>
         </div>
         <ul className="grid gap-x-ds-lg sm:grid-cols-2">
-          {reasons.map((r) => {
-            const Icon = r.icon;
-            return (
-              <li key={r.title} className="flex gap-4 border-t border-line py-ds-md">
-                <Icon className="mt-0.5 h-6 w-6 shrink-0 text-brand-600" strokeWidth={1.75} aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold text-ink">{r.title}</h3>
-                  <p className="mt-1 text-ink-700">{r.text}</p>
-                </div>
-              </li>
-            );
-          })}
+          {reasons.map((r) => (
+            <li key={r.title} className="border-t border-line py-ds-md">
+              <h3 className="text-lg font-semibold text-ink">{r.title}</h3>
+              <p className="mt-1 text-ink-700">{r.text}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

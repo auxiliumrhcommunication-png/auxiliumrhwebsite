@@ -57,6 +57,7 @@ Le logo (PNG) garde son bleu d'origine (#0333B3), quasi identique à `brand-600`
 ## Icônes
 
 Lucide, trait 1,75, 20 px dans le texte, 24 px en mise en avant, `currentColor` ou `brand-600`. Pas de pastilles autour des icônes.
+Icônes **fonctionnelles uniquement** (flèche de lien, téléphone, e-mail, coche de liste, alerte). Pas d'icône décorative par élément de liste : la numérotation et les filets portent la structure.
 
 ## Composants
 
