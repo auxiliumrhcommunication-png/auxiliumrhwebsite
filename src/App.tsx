@@ -7,6 +7,8 @@ import Services from './pages/Services';
 import Secteurs from './pages/Secteurs';
 import APropos from './pages/APropos';
 import Contact from './pages/Contact';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import NotFound from './pages/NotFound';
 
 /** À chaque navigation : remonte en haut, ou va à l'ancre (#recrutement…) si l'URL en contient une. */
@@ -40,6 +42,8 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/secteurs" element={<Secteurs />} />
           <Route path="/a-propos" element={<APropos />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

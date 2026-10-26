@@ -8,6 +8,13 @@
 Les valeurs ci-dessous sont définies dans `tailwind.config.js` : utiliser les
 classes Tailwind (`bg-brand-600`, `text-accent-400`…), jamais de couleurs en dur.
 
+## Réglages (skill ui-ux-pro-max)
+
+Générés par `npm run design -- --variance 7 --motion 7 --density 3` dans `src/design/tokens.json`.
+- **Créativité 7** (« Balanced / Modern ») : hero en deux colonnes, carte d'expertise mise en avant. Le skill bascule sur le style « Brutalism » à partir de 8 : il ne convient pas à un cabinet RH.
+- **Animations 7** (« Standard », préréglage « Stagger List ») : cascade GSAP opacity 0 / scale 0.92 / y 16 / 400 ms / back.out(1.4), compteurs animés, parallaxe du hero.
+- **Espacement 3** (« Spacious ») : échelle 4 / 8 / 24 / 32 / 48 / 64 / 96 px (classes `ds-xs` … `ds-3xl`).
+
 ## Couleurs
 
 | Rôle | Classe Tailwind | Valeur | Usage |
@@ -35,7 +42,8 @@ sur les boutons orange.
 - Boutons (`src/index.css`) : `.btn-primary` (orange), `.btn-outline` (bleu), `.btn-outline-light` (sur fond sombre). Hauteur 48 px minimum.
 - Cartes : `rounded-2xl`, bordure `slate-200`, ombre `shadow-card`, au survol `-translate-y-1` + `shadow-lift`.
 - Icônes : Lucide (`lucide-react`), jamais d'emoji.
-- Animations : composant `Reveal` (fondu + translation de 24 px, 700 ms), désactivées si l'utilisateur réduit les animations.
+- Animations : composants `Reveal` et `RevealGroup` (GSAP + ScrollTrigger), paramètres selon le réglage --motion, désactivées si l'utilisateur réduit les animations.
+- Images : illustrations vectorielles `public/illustrations/` (personnages, motif de l'arc du logo), remplaçables par des photos via `npm run images`.
 
 ## Accessibilité (héritée de la v1)
 

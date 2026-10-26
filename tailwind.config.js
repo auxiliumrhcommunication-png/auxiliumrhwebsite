@@ -1,3 +1,9 @@
+import { readFileSync } from 'node:fs';
+
+// Espacements générés par `npm run design` (skill ui-ux-pro-max, réglage --density)
+const tokens = JSON.parse(readFileSync(new URL('./src/design/tokens.json', import.meta.url), 'utf8'));
+const ds = Object.fromEntries(Object.entries(tokens.spacing).map(([k, v]) => [`ds-${k}`, v]));
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
@@ -45,6 +51,8 @@ export default {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
       },
+      // p-ds-lg, gap-ds-md, py-ds-3xl… suivent le réglage --density
+      spacing: ds,
       maxWidth: {
         site: '1200px',
       },

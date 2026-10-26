@@ -2,6 +2,7 @@ import { CheckCircle2 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import CTASection from '../components/CTASection';
 import Reveal from '../components/Reveal';
+import SlotImage from '../components/SlotImage';
 import { commitments } from '../data/company';
 import { usePageTitle } from '../hooks/usePageTitle';
 
@@ -16,7 +17,7 @@ export default function APropos() {
         lead="Basé à Libreville, au Gabon, Auxilium RH est un cabinet spécialisé dans le conseil, l'accompagnement et l'optimisation des pratiques en ressources humaines."
       />
 
-      <section className="py-16 sm:py-20">
+      <section className="py-ds-2xl lg:py-ds-3xl">
         <div className="container-site grid items-start gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
           <Reveal className="space-y-4 text-lg text-ink-muted">
             <h2 className="section-title mb-6">Qui sommes-nous ?</h2>
@@ -33,7 +34,8 @@ export default function APropos() {
               conforme aux exigences applicables, tout en plaçant l'humain au centre de ses priorités.
             </p>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={0.12}>
+            <SlotImage slot="equipe" priority alt="Illustration : trois consultants d'Auxilium RH réunis sous l'arc du logo" className="mb-ds-md rounded-3xl" />
             <figure className="rounded-2xl bg-night-950 p-8 text-white">
               <blockquote className="text-2xl font-bold leading-snug">
                 « La performance durable d'une entreprise passe par une gestion efficace, responsable et structurée de ses ressources humaines. »
@@ -44,7 +46,7 @@ export default function APropos() {
         </div>
       </section>
 
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-white py-ds-2xl lg:py-ds-3xl">
         <div className="container-site grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <p className="eyebrow">Notre vision</p>
@@ -60,7 +62,7 @@ export default function APropos() {
               </p>
             </div>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={0.12}>
             <p className="eyebrow">Nos engagements</p>
             <ul className="space-y-3">
               {commitments.map((c) => (

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-labelledby="t">
+  <title id="t">Entrepreneur : fusée qui décolle au-dessus d’une courbe de croissance</title>
+  <defs><filter id="s" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#071233" flood-opacity="0.14"/></filter></defs>
+  <rect width="400" height="260" rx="24" fill="#EEF3FF"/>
+  <circle cx="340" cy="56" r="26" fill="#FFE5D3"/>
+  <rect x="0" y="214" width="400" height="46" fill="#DCE6FF"/>
+  <polyline points="40,200 110,176 170,186 240,140 330,96" fill="none" stroke="#86A6FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(250 112) rotate(35)" filter="url(#s)">
+    <path d="M0-80c24 18 32 50 24 96H-24c-8-46 0-78 24-96z" fill="#fff"/>
+    <path d="M0-80c14 10 22 26 24 46H-24c2-20 10-36 24-46z" fill="#0333B3"/>
+    <circle cy="-10" r="12" fill="#071233"/><circle cy="-10" r="6" fill="#86A6FF"/>
+    <path d="M-24 0l-20 30 20-6zM24 0l20 30-20-6z" fill="#071233"/>
+    <path d="M-14 16q14 46 28 0z" fill="#FF6B2C"/>
+  </g>
+  <g fill="#0333B3"><circle cx="80" cy="70" r="4"/><circle cx="150" cy="44" r="3"/><circle cx="200" cy="80" r="3"/></g>
+</svg>

@@ -1,6 +1,6 @@
 import { Quote } from 'lucide-react';
 import { testimonials } from '../data/proof';
-import Reveal from './Reveal';
+import Reveal, { RevealGroup } from './Reveal';
 
 /**
  * Témoignages clients (preuve sociale).
@@ -11,15 +11,15 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-24" aria-labelledby="temoignages-title">
+    <section className="py-ds-2xl lg:py-ds-3xl" aria-labelledby="temoignages-title">
       <div className="container-site">
-        <Reveal className="mb-12 max-w-2xl">
+        <Reveal className="mb-ds-xl max-w-2xl">
           <p className="eyebrow">Ils nous font confiance</p>
           <h2 id="temoignages-title" className="section-title">Ce que disent nos clients</h2>
         </Reveal>
-        <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 80}>
+        <RevealGroup as="ul" className="grid gap-ds-md md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((t) => (
+            <li key={t.name}>
               <figure className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
                 <Quote className="mb-4 h-8 w-8 text-brand-200" aria-hidden="true" />
                 <blockquote className="flex-1 text-ink">« {t.quote} »</blockquote>
@@ -28,9 +28,9 @@ export default function Testimonials() {
                   <p className="text-sm text-ink-muted">{t.role}, {t.company}</p>
                 </figcaption>
               </figure>
-            </Reveal>
+            </li>
           ))}
-        </ul>
+        </RevealGroup>
       </div>
     </section>
   );

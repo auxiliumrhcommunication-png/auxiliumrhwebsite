@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-labelledby="t">
+  <title id="t">Petite entreprise : boutique avec auvent rayé</title>
+  <defs><filter id="s" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#071233" flood-opacity="0.14"/></filter></defs>
+  <rect width="400" height="260" rx="24" fill="#EEF3FF"/>
+  <circle cx="340" cy="56" r="26" fill="#FFE5D3"/>
+  <rect x="0" y="214" width="400" height="46" fill="#DCE6FF"/>
+  <g transform="translate(110 70)" filter="url(#s)">
+    <rect y="40" width="180" height="104" rx="8" fill="#fff"/>
+    <path d="M-8 40l14-40h168l14 40z" fill="#0333B3"/>
+    <path d="M28 0l-6 40M64 0l-2 40M100 0l2 40M136 0l6 40" stroke="#fff" stroke-width="14" opacity="0.9"/>
+    <path d="M-8 40q12 16 24 0q12 16 24 0q12 16 24 0q12 16 24 0q12 16 24 0q12 16 24 0q12 16 24 0q12 16 24 0" fill="#0333B3"/>
+    <rect x="18" y="72" width="64" height="72" rx="6" fill="#071233"/>
+    <circle cx="70" cy="110" r="4" fill="#FF6B2C"/>
+    <rect x="100" y="72" width="62" height="44" rx="6" fill="#DCE6FF"/>
+    <rect x="108" y="96" width="46" height="8" rx="4" fill="#FF6B2C"/>
+  </g>
+</svg>

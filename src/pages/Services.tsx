@@ -28,8 +28,8 @@ export default function Services() {
         </nav>
       </PageHeader>
 
-      <section className="py-16 sm:py-20">
-        <div className="container-site space-y-6">
+      <section className="py-ds-2xl lg:py-ds-3xl">
+        <div className="container-site space-y-ds-md">
           {services.map((s, i) => {
             const Icon = s.icon;
             return (

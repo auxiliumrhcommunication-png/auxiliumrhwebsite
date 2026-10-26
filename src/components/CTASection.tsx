@@ -14,7 +14,7 @@ export default function CTASection({
   text = 'Un premier diagnostic peut être proposé gratuitement, selon les modalités de prise en charge du cabinet.',
 }: CTASectionProps) {
   return (
-    <section className="py-16 sm:py-20" aria-labelledby="cta-title">
+    <section className="py-ds-xl lg:py-ds-2xl" aria-labelledby="cta-title">
       <div className="container-site">
         <Reveal className="relative overflow-hidden rounded-3xl bg-brand-600 px-6 py-12 text-white sm:px-12 sm:py-14">
           <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[28px] border-white/10" />

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-labelledby="t">
+  <title id="t">Industrie et services : usine avec engrenage</title>
+  <defs><filter id="s" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#071233" flood-opacity="0.14"/></filter></defs>
+  <rect width="400" height="260" rx="24" fill="#EEF3FF"/>
+  <circle cx="340" cy="56" r="26" fill="#FFE5D3"/>
+  <rect x="0" y="214" width="400" height="46" fill="#DCE6FF"/>
+  <g transform="translate(60 70)" filter="url(#s)">
+    <rect x="200" y="0" width="26" height="90" rx="4" fill="#071233"/>
+    <path d="M0 150V70l60 34V70l60 34V70l60 34V40h60v110z" fill="#0333B3"/>
+    <rect x="20" y="112" width="30" height="22" rx="4" fill="#DCE6FF"/>
+    <rect x="80" y="112" width="30" height="22" rx="4" fill="#DCE6FF"/>
+    <rect x="140" y="112" width="30" height="22" rx="4" fill="#FF6B2C"/>
+  </g>
+  <g fill="#fff" opacity="0.9"><circle cx="273" cy="56" r="12"/><circle cx="290" cy="40" r="9"/><circle cx="304" cy="28" r="6"/></g>
+  <g transform="translate(330 186)">
+    <path d="M-6-30h12l2 8 7 3 7-5 9 9-5 7 3 7 8 2v12l-8 2-3 7 5 7-9 9-7-5-7 3-2 8H-6l-2-8-7-3-7 5-9-9 5-7-3-7-8-2V-6l8-2 3-7-5-7 9-9 7 5 7-3z" fill="#FF6B2C"/>
+    <circle r="10" fill="#EEF3FF"/>
+  </g>
+</svg>
