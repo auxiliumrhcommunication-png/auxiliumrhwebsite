@@ -13,7 +13,7 @@ const proofs = [
 /**
  * Ouverture de l'accueil (direction « Éditorial institutionnel ») : promesse,
  * appels à l'action principal et secondaire, preuves factuelles, visuel.
- * Le visuel est la photo « equipe » si elle existe, sinon le contenu du premier diagnostic.
+ * Le visuel est l'image « accueil » si elle existe, sinon le contenu du premier diagnostic.
  */
 export default function Hero() {
   const centered = heroLayout === 'centered';
@@ -44,8 +44,14 @@ export default function Hero() {
         </div>
 
         <div className={centered ? 'mx-auto w-full max-w-xl' : ''}>
-          {hasPhoto('equipe') ? (
-            <SlotImage slot="equipe" priority alt="L'équipe Auxilium RH" className="rounded-lg" />
+          {hasPhoto('accueil') ? (
+            <SlotImage
+              slot="accueil"
+              priority
+              alt="Illustration : conseillère RH au téléphone, un dossier Auxilium RH à la main"
+              className="rounded-lg bg-brand-50"
+              sizes="(min-width: 1024px) 480px, 100vw"
+            />
           ) : (
             <DiagnosticPanel />
           )}

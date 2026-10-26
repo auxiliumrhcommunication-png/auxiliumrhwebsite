@@ -7,7 +7,7 @@ export type Service = {
   /** Adresse de la page : /services/<slug> */
   slug: string;
   /** Illustration ou photo associée (voir SlotImage), si disponible */
-  image?: 'recrutement' | 'conformite' | 'paie';
+  image?: 'recrutement' | 'conformite' | 'paie' | 'strategie';
   icon: LucideIcon;
   title: string;
   /** Libellé court (accès rapide, menus) */
@@ -76,6 +76,7 @@ export const services: Service[] = [
   {
     id: 'strategie',
     slug: 'strategie-rh',
+    image: 'strategie',
     navLabel: 'Stratégie RH',
     icon: Network,
     title: 'Conseil en organisation et stratégie RH',

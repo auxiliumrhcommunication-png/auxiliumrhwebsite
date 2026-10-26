@@ -1,6 +1,9 @@
 import photos from '../data/photos.json';
 
-export type ImageSlot = 'equipe' | 'recrutement' | 'conformite' | 'paie';
+export type ImageSlot = 'accueil' | 'equipe' | 'recrutement' | 'conformite' | 'paie' | 'strategie';
+
+// Emplacements qui ont une illustration de repli dans public/illustrations/
+const illustrated: ImageSlot[] = ['equipe', 'recrutement', 'conformite', 'paie'];
 
 type Photo = { avif: string; webp: string; fallback: string; width: number; height: number };
 const manifest = photos as Partial<Record<ImageSlot, Photo>>;
@@ -37,11 +40,13 @@ export default function SlotImage({ slot, alt, className = '', priority = false,
           alt={alt}
           loading={loading}
           decoding="async"
-          className={`h-auto w-full rounded-3xl object-cover ${className}`}
+          className={`h-auto w-full object-cover ${className}`}
         />
       </picture>
     );
   }
+
+  if (!illustrated.includes(slot)) return null;
 
   return (
     <img

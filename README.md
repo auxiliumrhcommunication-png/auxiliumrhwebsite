@@ -95,7 +95,7 @@ Python 3 est requis. Les animations sont toujours désactivées si le visiteur a
 ## Images
 
 - **Illustrations** : `public/illustrations/`, vectorielles, dans la palette bleue.
-- **Photos** : déposer `equipe.jpg`, `recrutement.jpg`, `conformite.jpg` ou `paie.jpg` dans `photos/`, puis `npm run images` et `npm run build`. La photo `equipe` remplace aussi le visuel de marque de l'accueil.
+- **Photos** : déposer dans `photos/` un fichier nommé `accueil`, `equipe`, `recrutement`, `conformite`, `paie` ou `strategie` (JPG, PNG ou WebP), puis `npm run images` et `npm run build`. `accueil` remplace le panneau « Premier diagnostic » du hero ; `equipe` (page À propos) est réservé à une vraie photo de l'équipe. Les détourages à fond transparent sont posés sur un aplat bleu clair.
 
 ## Formulaire de contact
 
