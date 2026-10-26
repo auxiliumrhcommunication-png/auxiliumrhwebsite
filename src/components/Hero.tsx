@@ -40,19 +40,19 @@ export default function Hero() {
 
   const text = (
     <div data-hero-text className={centered ? 'mx-auto max-w-3xl text-center' : ''}>
-      <p className={`mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm font-semibold text-slate-200`}>
-        <MapPin className="h-4 w-4 text-accent-400" aria-hidden="true" />
+      <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3.5 py-1.5 text-sm font-semibold text-ink shadow-sm backdrop-blur">
+        <MapPin className="h-4 w-4 text-brand-600" aria-hidden="true" />
         Cabinet de conseil RH · Libreville, Gabon
       </p>
       <h1
         id="hero-title"
-        className={`font-extrabold leading-[1.05] tracking-tight ${
+        className={`font-extrabold leading-[1.05] tracking-tight text-night-950 ${
           bold ? 'text-5xl sm:text-6xl lg:text-[4.5rem]' : 'text-4xl sm:text-5xl lg:text-[3.6rem]'
         }`}
       >
-        Le partenaire stratégique de votre <span className="text-accent-400">capital humain</span>.
+        Le partenaire stratégique de votre <span className="text-brand-600">capital humain</span>.
       </h1>
-      <p className={`mt-6 text-lg leading-relaxed text-slate-300 ${centered ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
+      <p className={`mt-6 text-lg font-medium leading-relaxed text-night-900 ${centered ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
         Recrutement, paie, audit social et conformité au Code du travail gabonais : Auxilium RH structure votre fonction RH
         pour sécuriser vos obligations et améliorer la performance de vos équipes.
       </p>
@@ -61,9 +61,11 @@ export default function Hero() {
           Demander un diagnostic RH
           <ArrowRight className="h-5 w-5" aria-hidden="true" />
         </Link>
-        <Link to="/services" className="btn-outline-light">Découvrir nos services</Link>
+        <Link to="/services" className="btn bg-white text-brand-700 shadow-sm hover:-translate-y-0.5 hover:bg-brand-50">Découvrir nos services</Link>
       </div>
-      <p className="mt-5 text-sm text-slate-400">Premier diagnostic sans engagement, selon les modalités du cabinet.</p>
+      <p className="mt-5 inline-flex rounded-xl bg-white/80 px-3 py-1 text-sm font-medium text-ink backdrop-blur">
+        Premier diagnostic sans engagement, selon les modalités du cabinet.
+      </p>
     </div>
   );
 
@@ -105,20 +107,17 @@ export default function Hero() {
   );
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-night-950 text-white" aria-labelledby="hero-title">
-      {/* Fond : halo bleu de marque + grille discrète */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_10%,rgba(3,51,179,0.6),transparent_70%)]" />
-        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_75%)]" />
-      </div>
-
-      <div
-        className={`container-site relative py-ds-2xl lg:py-ds-3xl ${
-          centered ? '' : `grid items-center gap-ds-2xl ${bold ? 'lg:grid-cols-[1.25fr_1fr]' : 'lg:grid-cols-[1.1fr_1fr]'}`
-        }`}
-      >
-        {text}
-        {visual}
+    // Carte arrondie en léger retrait des bords, fond « ciel » (classe .hero-sky dans index.css)
+    <section ref={ref} className="px-2 pt-2 sm:px-3 sm:pt-3" aria-labelledby="hero-title">
+      <div className="hero-sky relative overflow-hidden rounded-[28px]">
+        <div
+          className={`container-site relative py-ds-2xl lg:py-ds-3xl ${
+            centered ? '' : `grid items-center gap-ds-2xl ${bold ? 'lg:grid-cols-[1.25fr_1fr]' : 'lg:grid-cols-[1.1fr_1fr]'}`
+          }`}
+        >
+          {text}
+          {visual}
+        </div>
       </div>
     </section>
   );

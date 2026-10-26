@@ -85,6 +85,11 @@ Les animations sont toujours désactivées si le visiteur a demandé à réduire
 - **Illustrations** : `public/illustrations/`, vectorielles, aux couleurs du logo.
 - **Photos** : déposer `equipe.jpg`, `recrutement.jpg`, `conformite.jpg` ou `paie.jpg` dans `photos/`, puis lancer `npm run images` et `npm run build`. Chaque photo est recadrée, convertie en AVIF et WebP, et remplace l'illustration du même nom. Pour revenir à l'illustration, supprimer la photo et relancer `npm run images`.
 
+## Blog
+
+La rubrique Blog (`/blog`) lit les articles dans `src/data/blog.ts`. Pour publier un article, ajouter un objet à la liste `posts`, en haut de la liste pour le plus récent. Un exemple commenté est dans le fichier. Il faut renseigner l'adresse (`slug`), le titre, le résumé, la date, la catégorie et le contenu (paragraphes, intertitres, listes). Puis `npm run build` et `firebase deploy --only hosting`.
+Tant qu'il n'y a aucun article, la page affiche « Nos premiers articles arrivent bientôt ».
+
 ## Formulaire de contact
 
 Le site n'a pas de serveur : le formulaire vérifie les champs, puis ouvre la messagerie du visiteur avec un e-mail pré-rempli adressé à l'adresse de `src/data/site.ts`. Pour recevoir les messages directement, il faudra brancher un service (Formspree, Firebase…).

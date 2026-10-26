@@ -47,6 +47,17 @@
   }
 }
 
+/* Fond du hero : ciel clair en haut qui plonge vers le bleu de marque,
+   avec des taches de lumière floues (inspiration fournie par Auxilium RH). */
+.hero-sky {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(255, 255, 255, 0.95), transparent 70%),
+    radial-gradient(32% 42% at 10% 88%, rgba(190, 214, 255, 0.85), transparent 70%),
+    radial-gradient(38% 38% at 88% 42%, rgba(37, 110, 240, 0.6), transparent 70%),
+    radial-gradient(30% 30% at 62% 70%, rgba(92, 154, 245, 0.55), transparent 70%),
+    linear-gradient(180deg, #F4F7FC 0%, #E8F0FD 14%, #B5D0FA 34%, #6CA2F5 56%, #2E6FE8 78%, #0B44D6 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

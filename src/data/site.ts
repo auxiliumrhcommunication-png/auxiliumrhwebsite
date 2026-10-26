@@ -14,6 +14,7 @@ export const navLinks = [
   { to: '/services', label: 'Services' },
   { to: '/secteurs', label: 'Secteurs' },
   { to: '/a-propos', label: 'À propos' },
+  { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ];
 
