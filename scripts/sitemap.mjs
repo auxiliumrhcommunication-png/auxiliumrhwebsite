@@ -23,7 +23,7 @@ const legalComplete = !/'\[/.test(legalBlock);
 const today = new Date().toISOString().slice(0, 10);
 const paths = [
   '/', '/services', ...slugs(read('src/data/services.ts')).map((s) => `/services/${s}`),
-  '/secteurs', '/a-propos', '/blog', ...slugs(read('src/data/blog.ts')).map((s) => `/blog/${s}`), '/contact',
+  '/secteurs', '/a-propos', '/blog', ...slugs(read('src/data/articles.ts')).map((s) => `/blog/${s}`), '/contact',
   ...(legalComplete ? ['/mentions-legales', '/confidentialite'] : []),
 ];
 

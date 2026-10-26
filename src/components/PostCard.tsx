@@ -16,6 +16,7 @@ export default function PostCard({ post, featured = false, headingLevel: H = 'h3
       <div className={post.cover && !featured ? 'mt-ds-sm' : ''}>
         <p className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-600">
           <span className="font-semibold uppercase tracking-[0.08em] text-brand-600">{post.category}</span>
+          {post.draft && <span className="rounded bg-warn px-2 py-0.5 text-xs font-semibold text-white">Brouillon</span>}
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" aria-hidden="true" />{readingTime(post)} min</span>
         </p>

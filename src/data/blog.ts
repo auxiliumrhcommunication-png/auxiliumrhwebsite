@@ -1,8 +1,10 @@
-// Articles du blog.
+// Blog : types, catégories et utilitaires.
 //
-// Pour publier un article, ajouter un objet à la liste `posts` ci-dessous
-// (le plus récent en premier), puis `npm run build`.
-// Tant que la liste est vide, la page Blog affiche « Nos premiers articles arrivent bientôt ».
+// Publier un article : l'ajouter dans src/data/articles.ts (ou y déplacer un
+// brouillon de src/data/drafts.ts en mettant sa date de publication), puis `npm run build`.
+// Tant qu'aucun article n'est publié, la page Blog affiche « Nos premiers articles arrivent bientôt ».
+import { published } from './articles';
+import { drafts } from './drafts';
 
 export const categories = ['Recrutement', 'Conformité', 'Paie', 'Stratégie RH', 'Droit du travail', 'Guides', 'Actualités'] as const;
 
@@ -23,26 +25,24 @@ export type BlogPost = {
   /** Illustration de couverture (public/illustrations/… ou public/photos/…) */
   cover?: string;
   author?: string;
+  /** Services liés (slugs de src/data/services.ts) : liens depuis l'article et depuis la page du service */
+  services?: string[];
+  /** Points à faire vérifier avant publication (affichés uniquement sur les brouillons) */
+  verify?: string[];
+  /** Ajouté automatiquement aux brouillons en développement */
+  draft?: boolean;
   content: BlogBlock[];
 };
 
+// Articles publiés (src/data/articles.ts) ; en développement (`npm run dev`) seulement,
+// les brouillons (src/data/drafts.ts) sont ajoutés, signalés par un bandeau.
 export const posts: BlogPost[] = [
-  // Exemple de structure (à décommenter et adapter) :
-  // {
-  //   slug: 'preparer-sa-declaration-dts',
-  //   title: 'Préparer sa déclaration DTS sereinement',
-  //   excerpt: 'Les étapes à anticiper pour une déclaration sans mauvaise surprise.',
-  //   date: '2026-11-15',
-  //   category: 'Paie',
-  //   cover: '/illustrations/paie.svg',
-  //   author: 'Auxilium RH',
-  //   content: [
-  //     { type: 'p', text: 'Introduction…' },
-  //     { type: 'h2', text: 'Les documents à réunir' },
-  //     { type: 'list', items: ['…', '…'] },
-  //   ],
-  // },
-];
+  ...published,
+  ...(import.meta.env.DEV ? drafts.map((d) => ({ ...d, draft: true })) : []),
+].sort((a, b) => b.date.localeCompare(a.date));
+
+/** Articles liés à un service (lien réciproque contenu ↔ service). */
+export const postsForService = (slug: string) => posts.filter((p) => p.services?.includes(slug));
 
 /** Temps de lecture estimé (200 mots par minute). */
 export function readingTime(post: BlogPost) {

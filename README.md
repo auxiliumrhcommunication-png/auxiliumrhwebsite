@@ -20,11 +20,14 @@ src/
   index.css                 Boutons, champs, titres, fondu d'entrée de page
   design/                   tokens.json (généré par npm run design) et sa traduction
   hooks/useSeo.ts           Titre, description, adresse canonique, balises de partage par page
+  hooks/useJsonLd.ts        Données structurées propres à une page (articles publiés)
   data/                     TOUS LES TEXTES du site
     site.ts                 Coordonnées, WhatsApp, LinkedIn, menu, appels à l'action, mentions légales
     services.ts             Les 6 services (adresses /services/…) et les portes d'entrée « par besoin »
     company.ts              Secteurs, méthode, atouts, engagements
-    blog.ts                 Articles et catégories
+    blog.ts                 Types, catégories, recherche et utilitaires du blog
+    articles.ts             Articles PUBLIÉS
+    drafts.ts               Brouillons (visibles seulement avec npm run dev)
     proof.ts                Chiffres d'impact et témoignages (réels uniquement)
   components/
     Navbar.tsx              Barre fixe, sous-menu Services, menu mobile
@@ -39,7 +42,7 @@ src/
     CTASection.tsx, Footer.tsx, PageHeader.tsx, Logo.tsx, SlotImage.tsx
   pages/                    Accueil, Services, Service (×6), Secteurs, À propos, Blog, Article,
                             Contact, Mentions légales, Confidentialité, 404
-design-system/              Charte graphique (non publiée)
+design-system/MASTER.md     Charte graphique (non publiée)
 ```
 
 ## Adresses du site
@@ -61,7 +64,8 @@ Dans `src/pages/Legal.tsx` : durée de conservation des messages et cadre légal
 ## Modifier le contenu
 
 - **Chiffres d'impact et témoignages** : `src/data/proof.ts`, uniquement des données réelles (témoignages avec accord écrit).
-- **Articles** : ajouter un objet à `posts` dans `src/data/blog.ts` (exemple commenté dans le fichier). Catégories disponibles : Recrutement, Conformité, Paie, Stratégie RH, Droit du travail, Guides, Actualités.
+- **Articles** : les brouillons sont dans `src/data/drafts.ts` et ne s'affichent qu'avec `npm run dev` (bandeau « Brouillon » et liste des points à vérifier). Pour publier : faire relire, traiter la liste `verify`, mettre la date de publication, puis déplacer l'objet dans `src/data/articles.ts`. Les articles publiés apparaissent dans le blog, le plan du site, la page des services cités dans `services`, et reçoivent leurs données structurées. Catégories : Recrutement, Conformité, Paie, Stratégie RH, Droit du travail, Guides, Actualités.
+- **Règle de rédaction** : aucune référence juridique, aucun taux, délai ni montant sans source vérifiée.
 
 ## Travailler en local
 
@@ -118,4 +122,4 @@ firebase deploy --only hosting      # doit indiquer « found … files in dist �
 
 ## Charte graphique
 
-Voir `design-system/auxilium-rh/MASTER.md`.
+Voir `design-system/MASTER.md`.

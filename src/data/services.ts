@@ -61,10 +61,10 @@ export const services: Service[] = [
     navLabel: 'Administration et paie',
     icon: Wallet,
     title: 'Administration du personnel et gestion de la paie',
-    short: 'Contrats, dossiers salariés, paie, CNSS et déclarations sociales : des processus fiables et suivis.',
+    short: 'Contrats, dossiers salariés, paie, CNSS et déclarations sociales : des processus fiables et suivis.',
     intro: 'Nous aidons les entreprises à fiabiliser leurs processus administratifs et à assurer un suivi rigoureux de leurs obligations sociales.',
     items: [
-      'Rédaction et suivi des contrats : CDD, CDI, stages et contrats adaptés aux situations concernées.',
+      'Rédaction et suivi des contrats : CDD, CDI, stages et contrats adaptés aux situations concernées.',
       'Constitution et actualisation des dossiers salariés.',
       'Gestion des absences, congés et mouvements du personnel.',
       'Préparation et gestion de la paie.',

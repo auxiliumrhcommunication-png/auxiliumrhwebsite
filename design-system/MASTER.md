@@ -1,5 +1,11 @@
 # Charte graphique — Auxilium RH (v3 « Clarté institutionnelle »)
 
+> **Mécanisme des jetons** : les jetons de couleur, de typographie, d'ombre et de mouvement sont
+> définis dans `tailwind.config.js` (couche de jetons existante du projet) ; l'échelle d'espacement
+> vient de `src/design/tokens.json` (`npm run design`) ; le fondu d'entrée utilise les variables CSS
+> `--ds-motion-duration` et `--ds-motion-y` (`src/design/index.ts`, `src/index.css`).
+> Composants : aucun composant 21st n'a été utilisé (MCP indisponible dans l'environnement de travail).
+
 > Direction validée par Auxilium RH : **A « Éditorial institutionnel » + B « Par besoin »**
 > (portes d'entrée sous le hero, en simples liens). Remplace la v2 (dégradés, tableau de bord,
 > orange, bento). Recommandations du skill ui-ux-pro-max utilisées : motif « Trust & Authority
@@ -77,3 +83,25 @@ lien d'évitement ; un seul `h1` par page ; cibles ≥ 24 px (44 px pour les com
 
 375 px : une colonne, marges 16 px · 768 px : deux colonnes ponctuelles, marges 24 px ·
 1024 px : menu bureau, grilles · 1440 px : contenu 1 200 px centré.
+
+## États et retours utilisateur
+
+- **Vide** : jamais de section vide. Témoignages, chiffres d'impact, articles liés et derniers conseils sont masqués tant qu'ils n'ont pas de contenu ; la page Blog affiche « Nos premiers articles arrivent bientôt » avec les appels à l'action.
+- **Erreur** : message en `danger` sous le champ concerné + récapitulatif focalisable en haut du formulaire ; recherche sans résultat : message + bouton « Effacer la recherche ».
+- **Succès** : affiché **uniquement** quand l'action a réellement réussi (ex. copie confirmée par le presse-papiers). L'ouverture de la messagerie n'est pas un succès d'envoi : état informatif `brand-50` (« Votre message est prêt… »), avec « Ouvrir à nouveau ma messagerie » et « Copier le message ».
+- **Chargement** : sans objet (site statique, aucune requête réseau applicative).
+- Messages annoncés aux lecteurs d'écran (`role="status"`, `role="alert"`).
+
+## Parcours de contact
+
+1. Appel à l'action « Demander un diagnostic RH » → `/contact` (motif pré-rempli via `?motif=`).
+2. Formulaire : motif, nom, e-mail, téléphone (facultatif), organisation (facultatif), besoin.
+3. Envoi : ouverture de la messagerie du visiteur (`mailto:`), aucun stockage par le site.
+4. « Parler à un expert RH » : WhatsApp si `contact.whatsapp` est renseigné, sinon téléphone (`tel:`).
+
+## Blog et contenus
+
+- Articles publiés : `src/data/articles.ts` ; brouillons : `src/data/drafts.ts` (visibles seulement en `npm run dev`, bandeau « Brouillon » et liste des points à vérifier).
+- Liste : article « À la une », filtres par catégorie et recherche (affichés seulement s'il y a des articles), adresse partageable (`?categorie=`, `?q=`).
+- Article : sommaire, date, auteur, temps de lecture, « Nos services liés », encadré d'appel à l'action, articles liés de la même catégorie, données structurées `BlogPosting` (articles publiés uniquement).
+- Rédaction : aucune référence juridique, taux, délai ou montant sans source vérifiée ; points incertains listés dans `verify`.

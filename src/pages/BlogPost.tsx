@@ -1,11 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, TriangleAlert } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import PostCard from '../components/PostCard';
 import ContactActions from '../components/ContactActions';
 import NotFound from './NotFound';
 import { posts, readingTime, formatDate, headingId } from '../data/blog';
+import { serviceBySlug } from '../data/services';
+import { SITE_URL } from '../data/site';
 import { useSeo } from '../hooks/useSeo';
+import { useJsonLd } from '../hooks/useJsonLd';
 
 /** Article : en-tête, sommaire (grand écran), contenu à 68 caractères, encadré d'appel à l'action, articles liés. */
 export default function BlogPost() {
@@ -19,7 +22,26 @@ export default function BlogPost() {
     noindex: !post,
   });
 
+  // Données structurées de l'article (publiés uniquement ; uniquement des champs réels)
+  useJsonLd(
+    post && !post.draft
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          inLanguage: 'fr',
+          mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+          ...(post.cover ? { image: `${SITE_URL}${post.cover}` } : {}),
+          ...(post.author ? { author: { '@type': 'Organization', name: post.author } } : {}),
+          publisher: { '@type': 'Organization', name: 'Auxilium RH', logo: `${SITE_URL}/logo-auxilium-rh@2x.png` },
+        }
+      : null,
+  );
+
   if (!post) return <NotFound />;
+  const linkedServices = (post.services ?? []).map(serviceBySlug).filter((s) => s !== undefined);
 
   const toc = post.content.filter((b) => b.type === 'h2').map((b) => (b as { text: string }).text);
   const related = posts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
@@ -33,6 +55,22 @@ export default function BlogPost() {
           {post.author && <span>Par {post.author}</span>}
         </p>
       </PageHeader>
+
+      {post.draft && (
+        <div role="note" className="border-b border-warn/30 bg-amber-50">
+          <div className="container-site flex gap-3 py-ds-sm text-ink">
+            <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-warn" aria-hidden="true" />
+            <div>
+              <p className="font-semibold">Brouillon — à valider avant publication (visible uniquement en développement).</p>
+              {post.verify && post.verify.length > 0 && (
+                <ul className="mt-1 list-disc pl-5 text-sm text-ink-700">
+                  {post.verify.map((v) => <li key={v}>À vérifier : {v}</li>)}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="container-site grid gap-ds-xl py-ds-xl lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-ds-2xl lg:py-ds-2xl">
         <aside className="hidden lg:block">
@@ -69,6 +107,19 @@ export default function BlogPost() {
               return <p key={i}>{block.text}</p>;
             })}
           </div>
+
+          {linkedServices.length > 0 && (
+            <aside aria-labelledby="services-lies" className="mt-ds-xl max-w-prose border-t border-line pt-ds-md">
+              <h2 id="services-lies" className="eyebrow">Nos services liés</h2>
+              <ul className="space-y-2">
+                {linkedServices.map((s) => (
+                  <li key={s.slug}>
+                    <Link to={`/services/${s.slug}`} className="link-arrow">{s.title} <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
 
           <aside aria-labelledby="article-cta" className="mt-ds-xl max-w-prose rounded-lg bg-brand-50 p-ds-lg">
             <h2 id="article-cta" className="title-sm">Cette question se pose dans votre organisation ?</h2>

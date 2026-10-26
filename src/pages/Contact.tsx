@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Mail, Phone, MapPin, MessageCircle, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, Send, AlertCircle, CheckCircle2, Info, Copy } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import { contact, whatsappHref } from '../data/site';
 import { services } from '../data/services';
@@ -41,7 +41,10 @@ export default function Contact() {
   const [values, setValues] = useState<Values>({ nom: '', email: '', telephone: '', entreprise: '', motif: initialMotif, message: '' });
   const [errors, setErrors] = useState<Partial<Record<FieldName, boolean>>>({});
   const [summary, setSummary] = useState<FieldName[]>([]);
-  const [sent, setSent] = useState(false);
+  // Message préparé pour la messagerie du visiteur. Le site ne peut pas savoir si l'e-mail
+  // a été envoyé : aucun message de réussite n'est affiché pour l'envoi lui-même.
+  const [prepared, setPrepared] = useState<{ subject: string; body: string } | null>(null);
+  const [copy, setCopy] = useState<'idle' | 'copied' | 'failed'>('idle');
   const summaryRef = useRef<HTMLDivElement>(null);
   const wa = whatsappHref();
 
@@ -64,7 +67,7 @@ export default function Contact() {
     setErrors(Object.fromEntries(invalid.map((n) => [n, true])));
     setSummary(invalid);
     if (invalid.length) {
-      setSent(false);
+      setPrepared(null);
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
@@ -84,8 +87,23 @@ export default function Contact() {
       ...(entreprise ? [`Organisation : ${entreprise}`] : []),
     ].join('\n');
 
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setPrepared({ subject, body });
+    setCopy('idle');
+    window.location.href = mailtoHref(subject, body);
+  };
+
+  const mailtoHref = (subject: string, body: string) =>
+    `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // Copie du message : la réussite n'est annoncée que si le presse-papiers l'a confirmée
+  const copyMessage = async () => {
+    if (!prepared) return;
+    try {
+      await navigator.clipboard.writeText(`${prepared.subject}\n\n${prepared.body}`);
+      setCopy('copied');
+    } catch {
+      setCopy('failed');
+    }
   };
 
   const describedBy = (name: FieldName) => (errors[name] ? `${name}-error` : undefined);
@@ -223,15 +241,42 @@ export default function Contact() {
               Aucune donnée n'est enregistrée par ce site.
             </p>
 
-            <p role="status" aria-live="polite">
-              {sent && (
-                <span className="mt-ds-md flex items-start gap-2 rounded border-l-4 border-ok bg-green-50 p-4 font-semibold text-ok">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-                  Votre messagerie devrait s'ouvrir avec votre message : il ne reste qu'à cliquer sur « Envoyer ». Si rien ne
-                  s'ouvre, écrivez-nous directement à {contact.email}.
-                </span>
+            <div role="status" aria-live="polite">
+              {prepared && (
+                <div className="mt-ds-md rounded border-l-4 border-brand-600 bg-brand-50 p-4">
+                  <p className="flex items-start gap-2 font-semibold text-ink">
+                    <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" aria-hidden="true" />
+                    Votre message est prêt dans votre messagerie. Il ne sera transmis qu'une fois que vous l'aurez envoyé depuis
+                    celle-ci.
+                  </p>
+                  <p className="mt-2 text-sm text-ink-700">Votre messagerie ne s'est pas ouverte ?</p>
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                    <a href={mailtoHref(prepared.subject, prepared.body)} className="btn-secondary !min-h-[44px]">
+                      <Mail className="h-5 w-5" aria-hidden="true" /> Ouvrir à nouveau ma messagerie
+                    </a>
+                    <button type="button" onClick={copyMessage} className="btn-secondary !min-h-[44px]">
+                      <Copy className="h-5 w-5" aria-hidden="true" /> Copier le message
+                    </button>
+                  </div>
+                  {copy === 'copied' && (
+                    <p className="mt-3 flex items-start gap-2 text-sm font-semibold text-ok">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                      Message copié. Collez-le dans un e-mail adressé à {contact.email}.
+                    </p>
+                  )}
+                  {copy === 'failed' && (
+                    <div className="mt-3">
+                      <p className="flex items-start gap-2 text-sm font-semibold text-danger">
+                        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                        La copie automatique n'a pas fonctionné. Sélectionnez le texte ci-dessous et copiez-le :
+                      </p>
+                      <label htmlFor="message-pret" className="sr-only">Message à copier</label>
+                      <textarea id="message-pret" readOnly rows={6} value={`${prepared.subject}\n\n${prepared.body}`} className="field-input mt-2 text-sm" />
+                    </div>
+                  )}
+                </div>
               )}
-            </p>
+            </div>
           </form>
         </div>
       </section>

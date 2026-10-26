@@ -6,6 +6,8 @@ import SlotImage from '../components/SlotImage';
 import NotFound from './NotFound';
 import { services, serviceBySlug } from '../data/services';
 import { steps } from '../data/company';
+import { postsForService } from '../data/blog';
+import PostCard from '../components/PostCard';
 import { useSeo } from '../hooks/useSeo';
 
 /** Page d'un service : en bref, ce que nous faisons, déroulement, pour qui, appel à l'action. */
@@ -22,6 +24,7 @@ export default function ServiceDetail() {
 
   if (!service) return <NotFound />;
   const next = services[(index + 1) % services.length];
+  const articles = postsForService(service.slug).slice(0, 2);
 
   return (
     <>
@@ -103,6 +106,15 @@ export default function ServiceDetail() {
             </p>
             <Link to="/secteurs" className="link-arrow mt-3">Nos secteurs d'intervention <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
           </section>
+
+          {articles.length > 0 && (
+            <section aria-labelledby="conseils-title" className="mt-ds-2xl">
+              <h2 id="conseils-title" className="title-md mb-ds-md">Nos conseils sur ce sujet</h2>
+              <ul className="grid gap-ds-lg border-t border-line pt-ds-md sm:grid-cols-2">
+                {articles.map((p) => <li key={p.slug}><PostCard post={{ ...p, cover: undefined }} /></li>)}
+              </ul>
+            </section>
+          )}
 
           <aside aria-labelledby="besoin-title" className="mt-ds-2xl rounded-lg bg-brand-50 p-ds-lg">
             <h2 id="besoin-title" className="title-sm">Un besoin en {service.navLabel.toLowerCase()} ?</h2>

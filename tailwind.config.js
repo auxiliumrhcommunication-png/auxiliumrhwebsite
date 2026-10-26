@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 const tokens = JSON.parse(readFileSync(new URL('./src/design/tokens.json', import.meta.url), 'utf8'));
 const ds = Object.fromEntries(Object.entries(tokens.spacing).map(([k, v]) => [`ds-${k}`, v]));
 
-// Charte « Clarté institutionnelle » : voir design-system/auxilium-rh/MASTER.md.
+// Charte « Clarté institutionnelle » : voir design-system/MASTER.md.
 // Contrastes sur blanc indiqués en commentaire (WCAG AA : 4,5:1 pour le texte).
 /** @type {import('tailwindcss').Config} */
 export default {
