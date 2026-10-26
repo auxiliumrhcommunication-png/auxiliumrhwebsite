@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="t">
+  <title id="t">L'équipe Auxilium RH : trois consultants réunis sous l'arc du logo, devant un tableau de suivi</title>
+  <defs>
+    <filter id="s" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#071233" flood-opacity="0.16"/></filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF3FF"/><stop offset="1" stop-color="#DCE6FF"/></linearGradient>
+  </defs>
+  <rect x="20" y="20" width="600" height="440" rx="40" fill="url(#bg)"/>
+  <!-- arc du logo -->
+  <path d="M110 330a210 210 0 0 1 420 0" fill="none" stroke="#0333B3" stroke-width="26" stroke-linecap="round"/>
+  <path d="M455 150l58 -32-8 66z" fill="#0333B3"/>
+  <!-- tableau de suivi -->
+  <g transform="translate(230 70)" filter="url(#s)">
+    <rect width="180" height="110" rx="16" fill="#fff"/>
+    <polyline points="20,86 56,62 88,72 124,40 160,28" fill="none" stroke="#FF6B2C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="160" cy="28" r="8" fill="#FF6B2C"/>
+    <rect x="20" y="18" width="70" height="9" rx="4.5" fill="#0F172A" opacity="0.75"/>
+  </g>
+  <!-- personne gauche -->
+  <g transform="translate(150 230)">
+    <path d="M-62 230v-74c0-40 28-64 62-64s62 24 62 64v74z" fill="#071233"/>
+    <path d="M-16 96l16 34 16-34z" fill="#fff"/>
+    <path d="M-4 104l4 30 4-30z" fill="#FF6B2C"/>
+    <rect x="-13" y="58" width="26" height="40" rx="10" fill="#6B4226"/>
+    <ellipse cx="0" cy="30" rx="38" ry="42" fill="#7A4A2A"/>
+    <path d="M-38 24c0-34 20-48 40-48s38 14 38 46c-8-14-22-22-38-22s-30 8-40 24z" fill="#1F1410"/>
+    <circle cx="-13" cy="34" r="3.5" fill="#1F1410"/><circle cx="13" cy="34" r="3.5" fill="#1F1410"/>
+    <path d="M-10 52q10 8 20 0" fill="none" stroke="#3B2314" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- personne droite -->
+  <g transform="translate(490 230)">
+    <path d="M-62 230v-74c0-40 28-64 62-64s62 24 62 64v74z" fill="#FF6B2C"/>
+    <path d="M-20 96q20 22 40 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <rect x="-13" y="58" width="26" height="40" rx="10" fill="#8A5634"/>
+    <ellipse cx="0" cy="30" rx="38" ry="42" fill="#9C6644"/>
+    <path d="M-44 40c-8-50 18-74 44-74s54 22 44 74c-4-24-14-40-44-46-28 6-40 22-44 46z" fill="#1F1410"/>
+    <circle cx="0" cy="-40" r="20" fill="#1F1410"/>
+    <circle cx="-13" cy="34" r="3.5" fill="#1F1410"/><circle cx="13" cy="34" r="3.5" fill="#1F1410"/>
+    <path d="M-10 52q10 8 20 0" fill="none" stroke="#4A2C1A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- personne centrale -->
+  <g transform="translate(320 210)">
+    <path d="M-70 250v-82c0-44 32-70 70-70s70 26 70 70v82z" fill="#0333B3"/>
+    <path d="M-18 100l18 36 18-36z" fill="#fff"/>
+    <rect x="-14" y="62" width="28" height="42" rx="10" fill="#4E2F1B"/>
+    <ellipse cx="0" cy="32" rx="40" ry="44" fill="#5C3A21"/>
+    <path d="M-40 22c4-40 24-52 40-52s38 12 40 52c-10-18-24-24-40-24s-30 6-40 24z" fill="#120B07"/>
+    <circle cx="-14" cy="36" r="3.8" fill="#120B07"/><circle cx="14" cy="36" r="3.8" fill="#120B07"/>
+    <path d="M-11 56q11 9 22 0" fill="none" stroke="#2A190E" stroke-width="3" stroke-linecap="round"/>
+    <rect x="-60" y="150" width="40" height="52" rx="6" fill="#fff" transform="rotate(-8)"/>
+    <rect x="-52" y="162" width="24" height="5" rx="2.5" fill="#86A6FF" transform="rotate(-8)"/>
+    <rect x="-52" y="174" width="18" height="5" rx="2.5" fill="#CBD5E1" transform="rotate(-8)"/>
+  </g>
+  <!-- bulle -->
+  <g transform="translate(70 90)" filter="url(#s)">
+    <rect width="120" height="56" rx="18" fill="#fff"/>
+    <path d="M30 56l-6 18 22-18z" fill="#fff"/>
+    <circle cx="30" cy="28" r="7" fill="#0333B3"/><circle cx="56" cy="28" r="7" fill="#86A6FF"/><circle cx="82" cy="28" r="7" fill="#FF6B2C"/>
+  </g>
+</svg>

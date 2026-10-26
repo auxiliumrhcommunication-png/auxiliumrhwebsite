@@ -1,0 +1,2 @@
+Déposez ici les photos originales (equipe.jpg, recrutement.jpg, conformite.jpg, paie.jpg), puis lancez `npm run images`.
+Voir scripts/images.mjs.

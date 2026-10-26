@@ -4,25 +4,30 @@ import {
   Wrench, Target, ShieldCheck, Globe2, Lock, TriangleAlert,
 } from 'lucide-react';
 
-export const sectors: { icon: LucideIcon; title: string; text: string }[] = [
+// image : illustration décorative (public/illustrations/)
+export const sectors: { icon: LucideIcon; title: string; text: string; image: string }[] = [
   {
     icon: Store,
     title: 'TPE et PME',
+    image: '/illustrations/secteur-tpe.svg',
     text: 'Pour structurer la gestion du personnel, formaliser les contrats, respecter les obligations sociales et disposer de procédures RH fiables sans nécessairement créer un service interne complet.',
   },
   {
     icon: Building2,
     title: 'Grandes entreprises et groupes',
+    image: '/illustrations/secteur-groupe.svg',
     text: 'Pour renforcer les dispositifs RH existants, réaliser des audits, accompagner les recrutements et améliorer le suivi administratif et réglementaire.',
   },
   {
     icon: Factory,
     title: 'Industries et entreprises de services',
+    image: '/illustrations/secteur-industrie.svg',
     text: 'Pour répondre aux enjeux de gestion des effectifs, de suivi contractuel, de recrutement, d\'organisation du travail et de conformité sociale.',
   },
   {
     icon: Rocket,
     title: 'Entrepreneurs et organisations en développement',
+    image: '/illustrations/secteur-entrepreneur.svg',
     text: 'Pour mettre en place les bases d\'une gestion RH structurée dès les premières étapes de croissance.',
   },
 ];

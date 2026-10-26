@@ -16,7 +16,7 @@ export default function PageHeader({ eyebrow, title, lead, crumb, children }: Pa
   return (
     <section className="relative overflow-hidden bg-night-950 text-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_380px_at_85%_0%,rgba(3,51,179,0.55),transparent_70%)]" />
-      <div className="container-site relative py-16 sm:py-20">
+      <div className="container-site relative py-ds-2xl lg:py-ds-3xl">
         <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-slate-300">
           <ol className="flex flex-wrap items-center gap-1.5">
             <li><Link to="/" className="underline-offset-4 hover:text-white hover:underline">Accueil</Link></li>
