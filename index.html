@@ -8,10 +8,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="Auxilium RH, accueil">
@@ -19,7 +20,7 @@
         <span class="logo-text">Auxilium <strong>RH</strong></span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
       <nav id="nav" class="nav">
         <a href="index.html" aria-current="page">Accueil</a>
@@ -31,98 +32,135 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero">
+  <main id="contenu">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-inner">
-        <div class="hero-text">
+        <div>
           <p class="eyebrow">Cabinet de conseil RH · Libreville, Gabon</p>
-          <h1>Le partenaire stratégique de votre capital humain.</h1>
+          <h1 id="hero-title">Le partenaire stratégique de votre capital humain.</h1>
           <p class="lead">Auxilium RH accompagne les entreprises, les organisations et les entrepreneurs dans la structuration de leur fonction RH, la gestion de leur personnel et l'amélioration de leur performance organisationnelle.</p>
           <div class="hero-actions">
-            <a href="contact.html" class="btn">Demander un diagnostic RH</a>
-            <a href="services.html" class="btn btn-ghost">Découvrir nos services</a>
+            <a href="contact.html" class="btn">Demander un diagnostic RH
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="services.html" class="btn btn-secondary">Découvrir nos services</a>
           </div>
         </div>
-        <div class="hero-card" aria-hidden="true">
-          <div class="hero-card-row"><span class="dot"></span> Recrutement</div>
-          <div class="hero-card-row"><span class="dot"></span> Audit &amp; conformité</div>
-          <div class="hero-card-row"><span class="dot"></span> Paie &amp; administration</div>
-          <div class="hero-card-row"><span class="dot"></span> Stratégie RH</div>
-          <div class="hero-card-row"><span class="dot"></span> Droit du travail</div>
-          <div class="hero-card-row"><span class="dot"></span> Externalisation</div>
-        </div>
+        <aside class="credentials" aria-labelledby="cred-title">
+          <h2 id="cred-title">Ce que nous vous garantissons</h2>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span><strong>La conformité comme priorité</strong>Obligations administratives, sociales et réglementaires suivies.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+              <span><strong>Proximité et confidentialité</strong>Un accompagnement fondé sur l'écoute et la discrétion.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3"/></svg>
+              <span><strong>Une approche personnalisée</strong>Des solutions adaptées à la taille, aux moyens et aux objectifs de chaque organisation.</span>
+            </li>
+          </ul>
+        </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container intro">
-        <p class="eyebrow">Notre conviction</p>
-        <h2>La performance durable d'une entreprise passe par une gestion efficace, responsable et structurée de ses ressources humaines.</h2>
-        <p>Qu'il s'agisse d'une entreprise en phase de création, d'une PME en pleine croissance ou d'une organisation déjà établie, Auxilium RH intervient pour identifier les besoins, proposer des solutions concrètes et accompagner leur mise en œuvre.</p>
-      </div>
-    </section>
-
-    <section class="section section-alt">
+    <section class="proof" aria-label="Auxilium RH en bref">
       <div class="container">
-        <p class="eyebrow">Nos domaines d'expertise</p>
-        <h2>De l'organisation administrative à l'accompagnement stratégique</h2>
+        <ul class="proof-list">
+          <li><span class="proof-value">6</span><span class="proof-label">domaines d'expertise RH</span></li>
+          <li><span class="proof-value">CNSS · DTS</span><span class="proof-label">obligations sociales accompagnées</span></li>
+          <li><span class="proof-value">Toutes tailles</span><span class="proof-label">de la TPE au grand groupe</span></li>
+          <li><span class="proof-value">Diagnostic</span><span class="proof-label">premier diagnostic RH sans engagement</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="expertise-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Nos domaines d'expertise</p>
+          <h2 id="expertise-title">De l'organisation administrative à l'accompagnement stratégique</h2>
+          <p>Auxilium RH intervient sur l'ensemble des problématiques liées à la gestion des ressources humaines.</p>
+        </div>
         <div class="cards cards-3">
           <a class="card card-link" href="services.html#recrutement">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
             <h3>Recrutement et mobilité</h3>
             <p>Identification, évaluation et sélection des talents adaptés à vos besoins, jusqu'à leur intégration.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="card card-link" href="services.html#audit">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/></svg></div>
             <h3>Audit, diagnostic et conformité RH</h3>
             <p>Analyse de vos pratiques pour identifier les risques, les écarts réglementaires et les axes d'amélioration.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="card card-link" href="services.html#paie">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div>
             <h3>Administration du personnel et paie</h3>
             <p>Contrats, dossiers salariés, paie, CNSS et déclarations sociales : des processus fiables et suivis.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="card card-link" href="services.html#strategie">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 15l4-4 3 3 5-6"/></svg></div>
             <h3>Organisation et stratégie RH</h3>
             <p>Stratégie RH, fiches de poste, organigrammes, procédures internes et tableaux de bord.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="card card-link" href="services.html#droit">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M6 20h12"/><path d="M5 8h14"/><path d="M5 8l-3 6c0 1.7 1.3 3 3 3s3-1.3 3-3L5 8zM19 8l-3 6c0 1.7 1.3 3 3 3s3-1.3 3-3l-3-6z"/></svg></div>
             <h3>Droit du travail et conformité sociale</h3>
             <p>Comprendre et appliquer les règles encadrant les relations professionnelles au Gabon.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="card card-link" href="services.html#externalisation">
             <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5.5"/></svg></div>
             <h3>Externalisation des fonctions RH</h3>
             <p>Une prise en charge de vos missions RH, ponctuelle ou régulière, adaptée à vos ressources.</p>
+            <span class="card-more">En savoir plus <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="conviction" aria-label="Notre conviction">
       <div class="container">
-        <p class="eyebrow">Notre approche</p>
-        <h2>Des solutions adaptées à votre réalité</h2>
+        <figure>
+          <blockquote>
+            <p>« La performance durable d'une entreprise passe par une gestion efficace, responsable et structurée de ses ressources humaines. »</p>
+          </blockquote>
+          <figcaption>Qu'il s'agisse d'une entreprise en phase de création, d'une PME en pleine croissance ou d'une organisation déjà établie, Auxilium RH identifie les besoins, propose des solutions concrètes et accompagne leur mise en œuvre.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="approche-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Notre approche</p>
+          <h2 id="approche-title">Des solutions adaptées à votre réalité</h2>
+          <p>Chaque organisation possède ses propres contraintes. Notre accompagnement s'inscrit dans une logique de proximité, d'analyse et de résultats concrets.</p>
+        </div>
         <ol class="steps steps-4">
           <li>
-            <span class="step-num">1</span>
+            <span class="step-num" aria-hidden="true">1</span>
             <h3>Comprendre</h3>
             <p>Nous échangeons avec vous pour comprendre votre organisation, vos besoins et les difficultés rencontrées.</p>
           </li>
           <li>
-            <span class="step-num">2</span>
+            <span class="step-num" aria-hidden="true">2</span>
             <h3>Diagnostiquer</h3>
             <p>Nous analysons les pratiques existantes, identifions les écarts et déterminons les priorités d'action.</p>
           </li>
           <li>
-            <span class="step-num">3</span>
+            <span class="step-num" aria-hidden="true">3</span>
             <h3>Structurer et accompagner</h3>
             <p>Nous proposons des solutions concrètes et vous accompagnons dans leur mise en œuvre.</p>
           </li>
           <li>
-            <span class="step-num">4</span>
+            <span class="step-num" aria-hidden="true">4</span>
             <h3>Suivre et améliorer</h3>
             <p>Nous favorisons le suivi des actions engagées et l'amélioration continue de vos pratiques RH.</p>
           </li>
@@ -130,28 +168,30 @@
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section" aria-labelledby="pourquoi-title">
       <div class="container">
-        <p class="eyebrow">Pourquoi choisir Auxilium RH ?</p>
-        <h2>Un accompagnement concret, personnalisé et confidentiel</h2>
+        <div class="section-head">
+          <p class="eyebrow">Pourquoi choisir Auxilium RH ?</p>
+          <h2 id="pourquoi-title">Un accompagnement concret, personnalisé et confidentiel</h2>
+        </div>
         <ul class="reasons">
-          <li><strong>Une expertise RH de terrain</strong><span>Une approche concrète des problématiques rencontrées par les employeurs et les salariés.</span></li>
-          <li><strong>Une approche personnalisée</strong><span>Des solutions adaptées à la taille, aux moyens et aux objectifs de chaque organisation.</span></li>
-          <li><strong>La conformité comme priorité</strong><span>Une attention particulière portée aux obligations administratives, sociales et réglementaires.</span></li>
-          <li><strong>Une vision globale des RH</strong><span>Du recrutement à la gestion quotidienne du personnel, en passant par la stratégie RH.</span></li>
-          <li><strong>Proximité et confidentialité</strong><span>Un accompagnement professionnel fondé sur l'écoute et la discrétion.</span></li>
-          <li><strong>Une logique de prévention</strong><span>Identifier les risques et corriger les insuffisances avant qu'ils ne deviennent des difficultés majeures.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5z"/></svg><div><strong>Une expertise RH de terrain</strong><span>Une approche concrète des problématiques rencontrées par les employeurs et les salariés.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><div><strong>Une approche personnalisée</strong><span>Des solutions adaptées à la taille, aux moyens et aux objectifs de chaque organisation.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><div><strong>La conformité comme priorité</strong><span>Une attention particulière portée aux obligations administratives, sociales et réglementaires.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><div><strong>Une vision globale des RH</strong><span>Du recrutement à la gestion quotidienne du personnel, en passant par la stratégie RH.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><div><strong>Proximité et confidentialité</strong><span>Un accompagnement professionnel fondé sur l'écoute et la discrétion.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.4 17.5A2 2 0 004.1 20.5h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><div><strong>Une logique de prévention</strong><span>Identifier les risques et corriger les insuffisances avant qu'ils ne deviennent des difficultés majeures.</span></div></li>
         </ul>
       </div>
     </section>
 
-    <section class="cta">
+    <section class="cta" aria-labelledby="cta-title">
       <div class="container cta-inner">
         <div>
-          <h2>Un premier diagnostic RH, sans engagement</h2>
+          <h2 id="cta-title">Un premier diagnostic RH, sans engagement</h2>
           <p>Un premier diagnostic peut être proposé gratuitement, selon les modalités de prise en charge du cabinet.</p>
         </div>
-        <a href="contact.html" class="btn btn-light">Prendre contact</a>
+        <a href="contact.html" class="btn btn-on-dark">Prendre contact</a>
       </div>
     </section>
   </main>
@@ -160,15 +200,17 @@
     <div class="container footer-grid">
       <div>
         <p class="footer-brand">Auxilium <strong>RH</strong></p>
-        <p>L'humain au centre des organisations.</p>
+        <p>Le partenaire stratégique de votre capital humain. Cabinet de conseil en ressources humaines basé à Libreville, au Gabon.</p>
       </div>
       <nav class="footer-nav" aria-label="Pied de page">
+        <p class="footer-title">Navigation</p>
         <a href="services.html">Services</a>
         <a href="secteurs.html">Secteurs</a>
         <a href="a-propos.html">À propos</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="footer-contact">
+        <p class="footer-title">Contact</p>
         <a href="mailto:info@auxiliumrh.ga">info@auxiliumrh.ga</a>
         <a href="tel:062805051">062 80 50 51</a>
         <span>Libreville, Gabon</span>

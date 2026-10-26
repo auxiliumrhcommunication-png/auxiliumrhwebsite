@@ -14,9 +14,14 @@ contact.html        Coordonnées et formulaire de contact
 css/styles.css      Mise en forme (couleurs dans :root en haut du fichier)
 js/main.js          Menu mobile et formulaire de contact
 assets/favicon.svg  Icône de l'onglet
+design-system/      Charte graphique (non publiée sur le site)
 ```
 
 L'en-tête et le pied de page sont répétés dans chaque page : une modification (menu, coordonnées) doit être reportée dans les 5 fichiers.
+
+## Charte graphique
+
+La charte est décrite dans `design-system/auxilium-rh/MASTER.md`. Elle a été générée avec le skill ui-ux-pro-max (`.claude/skills/ui-ux-pro-max/`), avec le style « Trust & Authority » : bleu marine, bleu d'accent réservé aux actions, polices EB Garamond (titres) et Lato (texte), contraste minimal 4,5:1, navigation au clavier. Les couleurs sont reprises comme variables CSS en haut de `css/styles.css`. Toute nouvelle page doit suivre cette charte.
 
 ## Voir le site en local
 

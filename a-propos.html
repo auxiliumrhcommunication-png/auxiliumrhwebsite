@@ -8,10 +8,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="Auxilium RH, accueil">
@@ -19,7 +20,7 @@
         <span class="logo-text">Auxilium <strong>RH</strong></span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
       <nav id="nav" class="nav">
         <a href="index.html">Accueil</a>
@@ -31,9 +32,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <ol><li><a href="index.html">Accueil</a></li><li aria-current="page">À propos</li></ol>
+        </nav>
         <p class="eyebrow">À propos</p>
         <h1>L'humain au centre des organisations</h1>
         <p class="lead">Basé à Libreville, au Gabon, Auxilium RH est un cabinet spécialisé dans le conseil, l'accompagnement et l'optimisation des pratiques en ressources humaines.</p>
@@ -48,10 +52,10 @@
           <p>Dans un environnement professionnel où la gestion du capital humain, la conformité réglementaire et la performance des équipes sont essentielles, nous apportons des solutions adaptées aux réalités et aux besoins de chaque structure.</p>
           <p>Notre ambition est de permettre à chaque organisation de disposer d'une fonction RH mieux organisée, plus efficace et conforme aux exigences applicables, tout en plaçant l'humain au centre de ses priorités.</p>
         </div>
-        <aside class="quote">
-          <p>« La performance durable d'une entreprise passe par une gestion efficace, responsable et structurée de ses ressources humaines. »</p>
-          <span>Notre conviction</span>
-        </aside>
+        <figure class="quote">
+          <blockquote><p>« La performance durable d'une entreprise passe par une gestion efficace, responsable et structurée de ses ressources humaines. »</p></blockquote>
+          <figcaption>Notre conviction</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -81,7 +85,7 @@
           <h2>Travaillons ensemble</h2>
           <p>Un premier diagnostic RH peut être proposé gratuitement, sans engagement.</p>
         </div>
-        <a href="contact.html" class="btn btn-light">Prendre contact</a>
+        <a href="contact.html" class="btn btn-on-dark">Prendre contact</a>
       </div>
     </section>
   </main>
@@ -90,15 +94,17 @@
     <div class="container footer-grid">
       <div>
         <p class="footer-brand">Auxilium <strong>RH</strong></p>
-        <p>L'humain au centre des organisations.</p>
+        <p>Le partenaire stratégique de votre capital humain. Cabinet de conseil en ressources humaines basé à Libreville, au Gabon.</p>
       </div>
       <nav class="footer-nav" aria-label="Pied de page">
+        <p class="footer-title">Navigation</p>
         <a href="services.html">Services</a>
         <a href="secteurs.html">Secteurs</a>
         <a href="a-propos.html">À propos</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="footer-contact">
+        <p class="footer-title">Contact</p>
         <a href="mailto:info@auxiliumrh.ga">info@auxiliumrh.ga</a>
         <a href="tel:062805051">062 80 50 51</a>
         <span>Libreville, Gabon</span>

@@ -25,20 +25,51 @@ const form = document.getElementById('contact-form');
 
 if (form) {
   const status = form.querySelector('.form-status');
+  const summary = document.getElementById('error-summary');
+  const summaryList = summary.querySelector('ul');
+  const requiredFields = form.querySelectorAll('[required]');
+
+  // Affiche ou masque l'erreur placée sous le champ ; renvoie true si le champ est valide
+  const validateField = (field) => {
+    const ok = field.value.trim() !== '' && field.checkValidity();
+    const error = document.getElementById(`${field.id}-error`);
+    field.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    error.textContent = ok ? '' : error.dataset.message;
+    error.hidden = ok;
+    return ok;
+  };
+
+  requiredFields.forEach((field) => {
+    field.addEventListener('blur', () => {
+      if (field.value.trim() !== '') validateField(field);
+    });
+    field.addEventListener('input', () => {
+      if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+    });
+  });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    let valid = true;
+    const invalid = [...requiredFields].filter((field) => !validateField(field));
 
-    form.querySelectorAll('[required]').forEach((field) => {
-      const ok = field.value.trim() !== '' && field.checkValidity();
-      field.classList.toggle('invalid', !ok);
-      if (!ok) valid = false;
-    });
+    summaryList.replaceChildren(...invalid.map((field) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `#${field.id}`;
+      link.textContent = document.getElementById(`${field.id}-error`).dataset.message;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        field.focus();
+      });
+      item.append(link);
+      return item;
+    }));
+    summary.hidden = invalid.length === 0;
 
-    if (!valid) {
-      status.textContent = 'Merci de remplir correctement les champs obligatoires.';
-      status.className = 'form-status error';
+    if (invalid.length) {
+      status.textContent = '';
+      status.className = 'form-status';
+      summary.focus();
       return;
     }
 
